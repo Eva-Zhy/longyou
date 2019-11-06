@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <link rel="stylesheet" type="text/css" href="css/main.css?v=2223"/>
+    <title></title>
+    <script src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/layout.js"></script>
+    <script type="text/javascript" src="js/imagesloaded.pkgd.js"></script>
+<!--    <script src="https://www.remmli.com/h5/js/vconsole.min.js"></script>-->
+<!--    <script>-->
+<!--        var vConsole = new VConsole();-->
+<!--        console.log(window.userData);-->
+<!--    </script>-->
+    <script>
+        function getSms() {
+            $.ajax({
+                type: "POST", //提交方式
+                url: "https://ludianvr.com/propaganda/getlist",//路径
+                data: {},//数据，这里使用的是Json格式进行传输
+                dataType: 'json',
+                success: function (res) {//返回数据根据结果进行相应的处理
+                    console.log(res);
+                }
+            });
+        }
+
+    </script>
+</head>
+<body>
+    <div class="loading-v" style="display: block;">
+        <img src="./img/z1.png" class="t1 loading-img" />
+        <img src="./img/z2.png" style="opacity: 0;" id="z2" class="t1 loading-img" />
+        <div class="loading-bar">
+            <div class="bar-v"></div>
+        </div>
+        <div class="bf" id="bfb">0%</div>
+        <img id="logo"  class="loading-img" src="./img/logo.png">
+        <img id="start_btn"  class="loading-img" src="./img/btn1.png">
+    </div>
+    <div class="select-v"  style="display: none;">
+        <div id="select-item1" class="select-item">东京</div>
+        <div class="select-item">千鹤町</div>
+        <div class="select-item">爱媛县</div>
+        <div class="select-item">西伯利亚</div>
+    </div>
+</body>
+
+<script src="./js/main.js"></script>
+</html>

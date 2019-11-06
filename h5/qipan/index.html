@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <link rel="stylesheet" type="text/css" href="../css/qipan.css?v=2223"/>
+    <title></title>
+    <script src="../js/jquery.js"></script>
+    <script src="config.js"></script>
+    <script type="text/javascript" src="../js/layout.js"></script>
+</head>
+<body>
+<div class="game-v">
+    <div class="qipan">
+        <div id="qz" class="qz">
+            <img style="width: 100%;height: 100%;" src="../img/qz.png">
+        </div>
+    </div>
+    <div id="saizi">
+        开始
+    </div>
+</div>
+<script>
+    var w_width = document.body.clientWidth;
+    var now_pos = 23;
+    var jump_v = 15;
+    var bili = 375 / document.body.clientWidth;
+    var can = true;
+    console.log(w_width)
+    console.log(bili)
+    $(document).ready(function () {
+        $(".qipan").css("height", w_width / 1.62 + 'px');
+        $("#qz").css({width: 50 / bili + "px", height: 50 / bili + "px"});
+        $("#qz").css({"top": (gezhi[now_pos].top) / bili + "px", "left": (gezhi[now_pos].left) / bili + "px"});
+
+        $("#saizi").click(function () {
+            if (can) {
+                can = false;
+                var ranNum = randomNum(1, 6)
+                moveQz(ranNum)
+                console.log(ranNum);
+            }
+        })
+    });
+
+    function randomNum(minNum, maxNum) {
+        switch (arguments.length) {
+            case 1:
+                return parseInt(Math.random() * minNum + 1, 10);
+                break;
+            case 2:
+                return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
+                break;
+            default:
+                return 0;
+                break;
+        }
+    }
+
+    function moveQz(num) {
+        num--;
+        var min_top = 0;
+        var min_left = 0;
+        var end_top = 0;
+        var end_left = 0;
+        if (now_pos === 23) {
+            min_top = ((gezhi[now_pos].top + gezhi[0].top) / 2 - jump_v) / bili;
+            min_left = ((gezhi[now_pos].left + gezhi[0].left) / 2) / bili;
+            end_top = (gezhi[0].top) / bili;
+            end_left = (gezhi[0].left) / bili;
+        } else {
+            min_top = ((gezhi[now_pos].top + gezhi[now_pos + 1].top) / 2 - jump_v) / bili;
+            min_left = ((gezhi[now_pos].left + gezhi[now_pos + 1].left) / 2) / bili;
+            end_top = (gezhi[now_pos + 1].top) / bili;
+            end_left = (gezhi[now_pos + 1].left) / bili;
+        }
+
+        // var next = gezhi[now_pos].next;
+        // next 0 上 1 右 2 下 3左
+
+        $("#qz").animate({top: min_top + "px", left: min_left + "px"}, 300, function () {
+            $("#qz").animate({top: end_top + "px", left: end_left + "px"}, 300, function () {
+                if (now_pos === 23) {
+                    now_pos = 0;
+                } else {
+                    now_pos++;
+                }
+
+                if (num > 0) {
+                    moveQz(num);
+                } else {
+                    can = true;
+                }
+            });
+        });
+    }
+
+    // setTimeout(function () {
+    //     moveQz(1);
+    // }, 1000)
+    // //
+    // setTimeout(function () {
+    //     moveQz(2);
+    // }, 3000)
+</script>
+</body>
+</html>

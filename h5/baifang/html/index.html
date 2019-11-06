@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" type="text/css" href="../css/showbag.css"/>
+    <script type="text/javascript">!function (a) {
+        function b() {
+            var b = g.getBoundingClientRect().width;
+            a.rem = (b / 6.4 > 100 ? 100 : (b / 6.4 < 50 ? 50 : b / 6.4)), g.style.fontSize = a.rem + "px"
+        }
+
+        var g = a.document.documentElement, e;
+        a.addEventListener("resize", function () {
+            clearTimeout(e), e = setTimeout(b, 300)
+        }, !1), a.addEventListener("pageshow", function (a) {
+            a.persisted && (clearTimeout(e), e = setTimeout(b, 300))
+        }, !1), b()
+    }(window);</script>
+
+</head>
+<body>
+<input type="hidden" name="requestUrl" value=".."/>
+<canvas id="drawing" class="drawing" onclick="showbag.take.showdraw();"></canvas>
+<div class="game_bg" ></div>
+<div class="hide">
+    <div class="things" ></div>
+</div>
+
+
+<div class="choose">
+    <div style="display: none;" class="choose-take" onclick="showbag.take();"></div>
+    <div class="choose-toggle" style="display: none;" title="收起/展开"></div>
+    <div class="choose-list2" ></div>
+    <div class="choose-list transition" id="chooseListScroll">
+        <div class="choose-list-wrap">
+            <ul id="goods1">
+                <li class="goods" data-width="2.3" data-height="2.3" data-img="1.png">
+                    <img class="goods-img" src="../png/1.png">
+                </li>
+                <li class="goods" data-width="3.3" data-height="2.8" data-img="2.png">
+                    <img class="goods-img" src="../png/2.png">
+                </li>
+                <li class="goods" data-width="2.75" data-height="3.74" data-img="3.png">
+                    <img class="goods-img" src="../png/3.png">
+                </li>
+                <li class="goods" data-width="3.85" data-height="2.7" data-img="4.png">
+                    <img class="goods-img2" src="../png/4.png">
+                </li>
+                <li class="goods" data-width="3.85" data-height="2.7" data-img="5.png">
+                    <img class="goods-img2" src="../png/5.png">
+                </li>
+                <li class="goods" data-width="3.85" data-height="2.7" data-img="6.png">
+                    <img class="goods-img2" src="../png/6.png">
+                </li>
+                <li class="goods" data-width="3.85" data-height="2.7" data-img="7.png">
+                    <img class="goods-img2" src="../png/7.png">
+                </li>
+                <li class="goods" data-width="3.85" data-height="2.7" data-img="8.png">
+                    <img class="goods-img2" src="../png/8.png">
+                </li>
+                <li class="goods" data-width="3.85" data-height="2.7" data-img="9.png">
+                    <img class="goods-img2" src="../png/9.png">
+                </li>
+                <li class="goods" data-width="3.85" data-height="2.7" data-img="10.png">
+                    <img class="goods-img2" src="../png/10.png">
+                </li>
+            </ul>
+
+            <ul id="goods2" class="hide">
+                <li class="goods" data-width="1" data-height="1.7" data-img="11.png">
+                    <img class="goods-img2" src="../png/11.png">
+                <li class="goods" data-width="1" data-height="1.2" data-img="12.png">
+                    <img class="goods-img2" src="../png/12.png">
+                </li>
+                <li class="goods" data-width="1.6" data-height="2" data-img="13.png">
+                    <img class="goods-img2" src="../png/13.png">
+                </li>
+                <li class="goods" data-width=".8" data-height="1.25" data-img="14.png">
+                    <img class="goods-img2" src="../png/14.png">
+                </li>
+                <li class="goods" data-width=".8" data-height="1.25" data-img="15.png">
+                    <img class="goods-img2" src="../png/15.png">
+                </li>
+                <li class="goods" data-width="1" data-height="1.7" data-img="16.png">
+                    <img class="goods-img2" src="../png/16.png">
+                <li class="goods" data-width="1" data-height="1.2" data-img="17.png">
+                    <img class="goods-img2" src="../png/17.png">
+                </li>
+            </ul>
+            <ul id="goods3" class="hide">
+                <li class="goods" data-width="1.6" data-height="2" data-img="18.png">
+                    <img class="goods-img2" src="../png/18.png">
+                </li>
+                <li class="goods" data-width=".8" data-height="1.25" data-img="19.png">
+                    <img class="goods-img2" src="../png/19.png">
+                </li>
+                <li class="goods" data-width=".8" data-height="1.25" data-img="20.png">
+                    <img class="goods-img2" src="../png/20.png">
+                </li>
+                <li class="goods" data-width="1" data-height="1.7" data-img="21.png">
+                    <img class="goods-img2" src="../png/21.png">
+                <li class="goods" data-width="1" data-height="1.2" data-img="22.png">
+                    <img class="goods-img2" src="../png/22.png">
+                </li>
+                <li class="goods" data-width="1.6" data-height="2" data-img="23.png">
+                    <img class="goods-img2" src="../png/23.png">
+                </li>
+            </ul>
+            <ul id="goods4" class="hide">
+
+                <li class="goods" data-width=".8" data-height="1.25" data-img="24.png">
+                    <img class="goods-img2" src="../png/24.png">
+                </li>
+                <li class="goods" data-width=".8" data-height="1.25" data-img="25.png">
+                    <img class="goods-img2" src="../png/25.png">
+                </li>
+                <li class="goods" data-width="1" data-height="1.7" data-img="26.png">
+                    <img class="goods-img2" src="../png/26.png">
+                <li class="goods" data-width="1" data-height="1.2" data-img="27.png">
+                    <img class="goods-img2" src="../png/27.png">
+                </li>
+                <li class="goods" data-width="1.6" data-height="2" data-img="28.png">
+                    <img class="goods-img2" src="../png/28.png">
+                </li>
+                <li class="goods" data-width=".8" data-height="1.25" data-img="29.png">
+                    <img class="goods-img2" src="../png/29.png">
+                </li>
+            </ul>
+            <ul id="goods5" class="hide">
+
+                <li class="goods" data-width=".8" data-height="1.25" data-img="25.png">
+                    <img class="goods-img2" src="../png/25.png">
+                </li>
+                <li class="goods" data-width=".8" data-height="1.25" data-img="26.png">
+                    <img class="goods-img2" src="../png/26.png">
+                </li>
+                <li class="goods" data-width=".8" data-height="1.25" data-img="27.png">
+                    <img class="goods-img2" src="../png/27.png">
+                </li>
+                <li class="goods" data-width=".8" data-height="1.25" data-img="28.png">
+                    <img class="goods-img2" src="../png/28.png">
+                </li>
+                <li class="goods" data-width=".8" data-height="1.25" data-img="29.png">
+                    <img class="goods-img2" src="../png/29.png">
+                </li>
+                <li class="goods" data-width=".8" data-height="1.25" data-img="30.png">
+                    <img class="goods-img2" src="../png/30.png">
+                </li>
+                <li class="goods" data-width=".8" data-height="1.25" data-img="31.png">
+                    <img class="goods-img2" src="../png/31.png">
+                </li>
+                <li class="goods" data-width=".8" data-height="1.25" data-img="32.png">
+                    <img class="goods-img2" src="../png/32.png">
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="choose-cate">
+        <ul>
+            <li style="margin-left:0.45rem;" class="current"><span class="icon icon-a" id="icon-a">包</span></li>
+            <li><span class="icon icon-b" id="icon-b">必</span></li>
+            <li><span class="icon icon-c" id="icon-c">女</span></li>
+            <li><span class="icon icon-d" id="icon-d">食</span></li>
+            <li><span class="icon icon-e" id="icon-e">怪</span></li>
+        </ul>
+    </div>
+    <img class="jiantou" src="../imgs/jiantou22.png">
+    <img class="jiantou2" src="../imgs/upjiao.png">
+</div>
+<div class="result hide"><img class="image"/>
+    <div class="bot">
+        <div class="btn"><a href="javascript:;" onclick="showbag.take.back();">返回修改</a><a href="javascript:;">领取红包</a>
+        </div>
+        <div class="tips">长按上图即可保存图片分享</div>
+    </div>
+</div>
+
+<div class="welcome" style="display: none;">
+    <div class="bg"></div>
+    <div class="percent"></div>
+    <div class="btn"><a href="javascript:;">点击晒你包里有啥</a></div>
+</div>
+
+<div id="linkQrcode" class="hide"></div>
+
+<script src="../js/zepto.min.js"></script>
+<script src="../js/showbag.js"></script>
+
+</body>
+</html>
