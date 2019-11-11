@@ -109,21 +109,92 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 .things {
-    height: 100%;
-    width: 100vw;
+    /*height: 40rem;*/
+    /*width: 30rem;*/
     position: absolute;
     top: 0;
     left: 0;
     background-image: url("../imgs/thingsbg.jpg");
     background-repeat: no-repeat;
     /* background-position: center center; */
+    /* background-color: #d8c0a5;*/
+    background-size: 100% 100%;
+    overflow: hidden;
+    z-index: 3;
+}
+.things2 {
+    height: 100%;
+    width: 100%;
+    opacity: 0.8;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url("../../img/bg22.png");
+    background-repeat: no-repeat;
+    /* background-position: center center; */
      background-color: #d8c0a5;
     background-size: 100% 100%;
     overflow: hidden;
+    z-index: 1;
 }
 
 .thing {
     position: absolute;
+}
+
+.g_btn1{
+    width:5rem;
+    position: absolute;
+    z-index: 99;
+    top: 5rem;
+    right: 0.5rem;
+}
+
+.aite{
+    width: auto;
+    position: absolute;
+    z-index: 88;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #fff;
+    top: 4.5rem;
+    left: 3rem;
+}
+
+.aite2{
+    width: auto;
+    position: absolute;
+    z-index: 77;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #fd7dff;
+    top: 4.5rem;
+    left: 2.8rem;
+}
+.aite3{
+    width: auto;
+    position: absolute;
+    z-index: 77;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #1427c6;
+    top: 4.5rem;
+    left: 3.2rem;
+}
+
+.g_btn2{
+    width: 5rem;
+    position: absolute;
+    z-index: 99;
+    top: 11rem;
+    right: 0.5rem;
+}
+.g_btn3{
+    width: 5rem;
+    position: absolute;
+    z-index: 99;
+    top: 43rem;
+    right: 0.5rem;
 }
 
 .thing img {
@@ -131,74 +202,96 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 #icon-a{
-    background-image: url('../imgs/jiaju1_1.png');
-    width: 1.1rem;
-    height: 1rem;
+    background-image: url('../../img/jiaju1_1.png');
+    width: 5rem;
+    height:6rem;
     background-size: 100% 100%;
 }
 
 #icon-b{
-    background-image: url('../imgs/jiaju2_2.png');
-    width: 1.1rem;
-    height: 1rem;
+    background-image: url('../../img/jiaju2_2.png');
+    width: 5rem;
+    height:6rem;
     background-size: 100% 100%;
 }
 #icon-c{
-    background-image: url('../imgs/jiaju3_2.png');
-    width: 1.1rem;
-    height: 1rem;
+    background-image: url('../../img/jiaju3_2.png');
+    width: 5rem;
+    height:6rem;
     background-size: 100% 100%;
 }
 #icon-d{
-    background-image: url('../imgs/jiaju4_2.png');
-    width: 1.1rem;
-    height: 1rem;
+    background-image: url('../../img/jiaju4_2.png');
+    width: 5rem;
+    height:6rem;
     background-size: 100% 100%;
 }
 #icon-e{
-    background-image: url('../imgs/jiaju5_2.png');
-    width: 1.1rem;
-    height: 1rem;
+    background-image: url('../../img/jiaju5_2.png');
+    width: 5rem;
+    height:6rem;
+    background-size: 100% 100%;
+}
+
+#big{
+
+}
+
+#del:before{
+    height: 2.4rem;
+    width: 2.4rem;
+    left: -2rem;
+    bottom: -1rem;
+    background-image: url("../../img/img_cha.png");
+    background-size: 100% 100%;
+}
+
+#big:before{
+    height: 2.4rem;
+    width: 2.4rem;
+    right: -1rem;
+    top: -2rem;
+    background-image: url("../../img/img_la.png");
     background-size: 100% 100%;
 }
 
 .thing .big:before, .thing .del:before, .choose-take:before, .choose-cate .icon, .choose-toggle:before, .choose-list .icon {
-    background: url(../img/activity_showbag_h5_sprite.png?t=20180502) no-repeat;
-    background-size: 6.4rem auto;
+    /*background: url(../img/activity_showbag_h5_sprite.png?t=20180502) no-repeat;*/
+    /*background-size: 6.4rem auto;*/
 }
 
 .jiantou{
-    width: 0.5rem;
+    width: 3.5rem;
     position: absolute;
     z-index: 99;
-    top: 0.4rem;
-    right: 0.30rem;
+    top: 2.4rem;
+    right: 2.5rem;
 }
 
 .jiantou2{
-    width: 0.35rem;
+    width: 2rem;
     position: absolute;
     z-index: 99;
-    top: 1.2rem;
-    left: 0.80rem;
+    top: 7.2rem;
+    left: 5.4rem;
 }
 
 .goods-img{
-    height: 0.7rem;
+    height: 4rem;
     margin: 0 auto;
     display: block;
     margin-top: 0.1rem;
 }
 
 .goods-img2{
-    height: 0.7rem;
+    height: 4rem;
     margin: 0 auto;
     display: block;
     margin-top: 0.1rem;
 }
 
 .game_bg{
-    background-image:url(../imgs/bg3.jpg);
+    background-image:url(../../img/bfbg.jpg);
     background-size: 100% 100%;
     position: absolute;
     top: 0;
@@ -215,9 +308,9 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     color: #999;
     height: .4rem;
     width: .4rem;
-    margin: -.1rem -.1rem 0 0;
+    /*margin: -.1rem -.1rem 0 0;*/
     border-radius: 50%;
-    background-position: -.85rem -.7rem;
+    /*background-position: -.85rem -.7rem;*/
     box-shadow: 0 .01rem .01rem rgba(0, 0, 0, .1);
 }
 
@@ -226,8 +319,8 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     top: auto;
     bottom: 100%;
     left: 100%;
-    background-position: -1.25rem -.7rem;
-    margin: 0 0 -.1rem -.1rem;
+    /*background-position: -1.25rem -.7rem;*/
+    /*margin: 0 0 -.1rem -.1rem;*/
 }
 
 .thing-touch {
@@ -264,7 +357,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 0.2rem;
+    bottom: 1rem;
     /*background-color: #fff;*/
     z-index: 1;
 }
@@ -348,25 +441,25 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 .choose-list {
     /*height: 2.5rem;*/
-    height: 1.3rem;
+    height: 8rem;
     overflow: hidden;
     /*background-image: url("../imgs/jianjubg.png");*/
     background-size: 100% 100%;
     position: relative;
-    width: 91.5%;
-    left: 4.6%;
+    width: 85%;
+    left: 7.5%;
     margin-bottom: 0.1rem;
     z-index: 5;
 }
 .choose-list2 {
     /*height: 2.5rem;*/
-    height: 1.3rem;
+    height: 8rem;
     overflow: hidden;
     position: absolute;
-    background-image: url("../imgs/jianjubg.png");
+    background-image: url("../../img/jianjubg.png");
     background-size: 100% 100%;
-    width: 92%;
-    left: 3%;
+    width: 86%;
+    left: 6%;
     z-index: 4;
     margin-bottom: 0.1rem;
     padding-right: 3%;
@@ -383,7 +476,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     /*top: 0.3rem;*/
     /*overflow-x: scroll;*/
     /*width: 96%;*/
-    height:1.3rem;
+    height:6rem;
     /*background-color: red;*/
     /*right: 0;*/
 
@@ -515,16 +608,16 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 .choose-list li {
-    width: 1.15rem;
-    height: 0.85rem;
+    width: 6rem;
+    height: 4.45rem;
     position: relative;
     float: left;
-    margin-top: 0.3rem;
-    box-shadow: 4px 0px 2px  rgba(0,0,0,0.5);
+    margin-top: 2.3rem;
+    box-shadow: 4px 0px 1px  rgba(0,0,0,0.5);
     /*margin: 2%;*/
     /*display: inline-block;*/
     display: block;
-    margin-left: 0.1rem;
+    margin-left: 0.5rem;
 }
 
 .choose-list .icon {

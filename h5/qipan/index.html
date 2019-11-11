@@ -14,28 +14,72 @@
     <script type="text/javascript" src="../js/layout.js"></script>
 </head>
 <body>
+
+<div class="game-yxgz" style="display: none">
+    <img src="../img/gz.png" class="yxgz_img">
+    <img src="../img/chax.png" id="yxgz_x">
+</div>
+
 <div class="game-v">
-    <div class="qipan">
-        <div id="qz" class="qz">
-            <img style="width: 100%;height: 100%;" src="../img/qz.png">
+
+    <img class="qd_title" src="../img/t222.png">
+    <div class="qiandao">
+        <div class="qiandao-item">
+            <img class="qiandao-icon" src="../img/gou.png">
+            <span class="qiandao-title">第一天</span>
+        </div>
+        <div class="qiandao-item">
+            <img class="qiandao-icon" src="../img/gou2.png">
+            <span class="qiandao-title">第二天</span>
+        </div>
+        <div class="qiandao-item2">
+            <img class="qiandao-icon2" src="../img/lw11.png">
+        </div>
+        <div class="qiandao-item2">
+            <img class="qiandao-icon2" src="../img/lw22.png">
+        </div>
+        <div class="qiandao-item2">
+            <img class="qiandao-icon2" src="../img/lw11.png">
         </div>
     </div>
-    <div id="saizi">
-        开始
+    <div class="qiandao-bar">
+        <div class="qiandao-bar2">
+
+        </div>
+    </div>
+    <div class="qipan">
+        <div id="qz" class="qz">
+            <img class="qz_tou" src="../img/qz.png">
+        </div>
+    </div>
+<!--    <div id="saizi">-->
+<!--        开始-->
+<!--    </div>-->
+    <img class="yxgz" src="../img/yxgz.png">
+    <img class="g_qzz" src="../img/g_qzz.png">
+
+    <img src="../img/chuan.png" id="chuan">
+    <div class="game_num">1</div>
+    <div class="game_share">
+        <img src="../img/add.png" id="add">
+    </div>
+
+    <div class="saizibg">
+        <img src="../img/num1.png" id="saizi">
     </div>
 </div>
 <script>
     var w_width = document.body.clientWidth;
     var now_pos = 23;
-    var jump_v = 15;
+    var jump_v = 28;
     var bili = 375 / document.body.clientWidth;
     var can = true;
     console.log(w_width)
     console.log(bili)
     $(document).ready(function () {
         $(".qipan").css("height", w_width / 1.62 + 'px');
-        $("#qz").css({width: 50 / bili + "px", height: 50 / bili + "px"});
-        $("#qz").css({"top": (gezhi[now_pos].top) / bili + "px", "left": (gezhi[now_pos].left) / bili + "px"});
+        $("#qz").css({width: 70 / bili + "px", height: 70 / bili + "px"});
+        $("#qz").css({"top": (gezhi[now_pos].top- 18)  / bili + "px", "left": (gezhi[now_pos].left -10) / bili + "px"});
 
         $("#saizi").click(function () {
             if (can) {
@@ -68,15 +112,15 @@
         var end_top = 0;
         var end_left = 0;
         if (now_pos === 23) {
-            min_top = ((gezhi[now_pos].top + gezhi[0].top) / 2 - jump_v) / bili;
-            min_left = ((gezhi[now_pos].left + gezhi[0].left) / 2) / bili;
-            end_top = (gezhi[0].top) / bili;
-            end_left = (gezhi[0].left) / bili;
+            min_top = ((gezhi[now_pos].top + gezhi[0].top - 18) / 2 - jump_v) / bili;
+            min_left = ((gezhi[now_pos].left + gezhi[0].left - 10) / 2) / bili;
+            end_top = (gezhi[0].top - 18) / bili;
+            end_left = (gezhi[0].left - 10) / bili;
         } else {
-            min_top = ((gezhi[now_pos].top + gezhi[now_pos + 1].top) / 2 - jump_v) / bili;
-            min_left = ((gezhi[now_pos].left + gezhi[now_pos + 1].left) / 2) / bili;
-            end_top = (gezhi[now_pos + 1].top) / bili;
-            end_left = (gezhi[now_pos + 1].left) / bili;
+            min_top = ((gezhi[now_pos].top + gezhi[now_pos + 1].top - 18) / 2 - jump_v) / bili;
+            min_left = ((gezhi[now_pos].left + gezhi[now_pos + 1].left - 10) / 2) / bili;
+            end_top = (gezhi[now_pos + 1].top - 18) / bili;
+            end_left = (gezhi[now_pos + 1].left - 10) / bili;
         }
 
         // var next = gezhi[now_pos].next;

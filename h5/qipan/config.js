@@ -25,7 +25,7 @@ window.gezhi=[
     {
         top:0,
         left:125,
-        type:0,
+        type:1,
         next:3
     },
     // 5
@@ -56,112 +56,112 @@ window.gezhi=[
         type:0,
         next:2
     },
-    // 8
+    // 9
     {
         top:17,
         left:300,
-        type:0,
+        type:1,
         next:2
     },
-    // 9
+    // 10
     {
         top:35,
         left:265,
         type:0,
         next:2
     },
-    // 10
+    // 11
     {
         top:55,
         left:231,
         type:0,
         next:2
     },
-    // 11
+    // 12
     {
         top:73,
         left:265,
         type:0,
         next:2
     },
-    // 12
+    // 13
     {
         top:90,
         left:300,
-        type:0,
+        type:1,
         next:2
     },
-    // 13
+    // 14
     {
         top:108,
         left:266,
         type:0,
         next:2
     },
-    // 14
+    // 15
     {
         top:126,
         left:231,
         type:0,
         next:2
     },
-    // 15
+    // 16
     {
         top:108,
         left:195,
         type:0,
         next:2
     },
-    // 16
+    // 17
     {
         top:126,
         left:161,
         type:0,
         next:2
     },
-    // 17
+    // 18
     {
         top:109,
         left:126,
         type:0,
         next:2
     },
-    // 18
+    // 19
     {
         top:126,
         left:91,
         type:0,
         next:2
     },
-    // 19
+    // 20
     {
         top:107,
         left:56,
         type:0,
         next:2
     },
-    // 20
+    // 21
     {
         top:88,
         left:22,
         type:0,
         next:2
     },
-    // 21
+    // 22
     {
         top:70,
         left:57,
-        type:0,
+        type:1,
         next:2
     },
-    // 22
+    // 23
     {
         top:52,
         left:90,
         type:0,
         next:2
     },
-    // 23
+    // 24
     {
         top:34,
         left:55,

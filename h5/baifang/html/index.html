@@ -8,19 +8,20 @@
           content="width=device-width, user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1"/>
     <meta name="format-detection" content="telephone=no"/>
     <link rel="stylesheet" type="text/css" href="../css/showbag.css"/>
-    <script type="text/javascript">!function (a) {
-        function b() {
-            var b = g.getBoundingClientRect().width;
-            a.rem = (b / 6.4 > 100 ? 100 : (b / 6.4 < 50 ? 50 : b / 6.4)), g.style.fontSize = a.rem + "px"
-        }
+    <script type="text/javascript" src="../../js/layout.js"></script>
+<!--    <script type="text/javascript">!function (a) {-->
+<!--        function b() {-->
+<!--            var b = g.getBoundingClientRect().width;-->
+<!--            a.rem = (b / 6.4 > 100 ? 100 : (b / 6.4 < 50 ? 50 : b / 6.4)), g.style.fontSize = a.rem + "px"-->
+<!--        }-->
 
-        var g = a.document.documentElement, e;
-        a.addEventListener("resize", function () {
-            clearTimeout(e), e = setTimeout(b, 300)
-        }, !1), a.addEventListener("pageshow", function (a) {
-            a.persisted && (clearTimeout(e), e = setTimeout(b, 300))
-        }, !1), b()
-    }(window);</script>
+<!--        var g = a.document.documentElement, e;-->
+<!--        a.addEventListener("resize", function () {-->
+<!--            clearTimeout(e), e = setTimeout(b, 300)-->
+<!--        }, !1), a.addEventListener("pageshow", function (a) {-->
+<!--            a.persisted && (clearTimeout(e), e = setTimeout(b, 300))-->
+<!--        }, !1), b()-->
+<!--    }(window);</script>-->
 
 </head>
 <body>
@@ -28,9 +29,23 @@
 <canvas id="drawing" class="drawing" onclick="showbag.take.showdraw();"></canvas>
 <div class="game_bg" ></div>
 <div class="hide">
+    <div class="things2" ></div>
+
     <div class="things" ></div>
 </div>
 
+<img class="g_btn1" src="../../img/g_btn1.png">
+<img class="g_btn2" src="../../img/g_btn2.png">
+<img class="g_btn3" src="../../img/g_btn3.png">
+<div class="aite">
+    @吴雨思的家
+</div>
+<div class="aite2">
+    @吴雨思的家
+</div>
+<div class="aite3">
+    @吴雨思的家
+</div>
 
 <div class="choose">
     <div style="display: none;" class="choose-take" onclick="showbag.take();"></div>
@@ -163,16 +178,19 @@
 
     <div class="choose-cate">
         <ul>
-            <li style="margin-left:0.45rem;" class="current"><span class="icon icon-a" id="icon-a">包</span></li>
+            <li style="margin-left:3rem;" class="current"><span class="icon icon-a" id="icon-a">包</span></li>
             <li><span class="icon icon-b" id="icon-b">必</span></li>
             <li><span class="icon icon-c" id="icon-c">女</span></li>
             <li><span class="icon icon-d" id="icon-d">食</span></li>
             <li><span class="icon icon-e" id="icon-e">怪</span></li>
         </ul>
     </div>
-    <img class="jiantou" src="../imgs/jiantou22.png">
-    <img class="jiantou2" src="../imgs/upjiao.png">
+
+    <img class="jiantou" src="../../img/jiantou22.png">
+    <img class="jiantou2" src="../../img/upjiao.png">
 </div>
+
+
 <div class="result hide"><img class="image"/>
     <div class="bot">
         <div class="btn"><a href="javascript:;" onclick="showbag.take.back();">返回修改</a><a href="javascript:;">领取红包</a>

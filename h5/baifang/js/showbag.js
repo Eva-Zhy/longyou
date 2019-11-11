@@ -13,24 +13,16 @@ var $take = $('.choose-take');
 var inTaking = false;
 var rem = 100;
 var ratio = window.devicePixelRatio ? window.devicePixelRatio : 1;
-var cdnUrl = $('input[name="requestUrl"]').val();
+// var cdnUrl = $('input[name="requestUrl"]').val();
+var cdnUrl = "./baifang";
 // var imgUrl = '../img/activity_showbag_h5_';/*跨域，相对路径*/
-var imgUrl = '../png/';/*跨域，相对路径*/
+var imgUrl = './baifang/png/tu/';/*跨域，相对路径*/
 var wf_width = document.body.clientWidth;
 var things_bili = 0.78;
 var things_wh = 0.88;
 /*预加载图片分组*/
 var imgList = {0:[
-    '1.png',
-    '2.png',
-    '3.png',
-    '4.png',
-    '5.png',
-    '6.png',
-    '7.png',
-    '8.png',
-    '9.png',
-    '10.png'
+    '1/1.png'
     ],
     1:[
     ],
@@ -106,7 +98,7 @@ showbag.init = function(){
     showbag.drawing();/*画布初始化*/
     
     /*关闭欢迎页*/
-    startGame()
+
     // $welcome.on('click','.btn a',function(){
     //     $welcome.addClass('welcome-out');
     //     setTimeout(function(){
@@ -143,13 +135,23 @@ showbag.init = function(){
             thingImg = $(this).attr('data-img'),
             thingWidth = width * rem,
             thingHeight = height * rem,
-            thingLeft = (thingsWidth - thingWidth)/2,
-            thingTop = (thingsHeight - thingHeight - chooseHeight)/2;
+            console.log("rem",rem);
+            console.log("thingsWidth",thingsWidth);
+            console.log("thingsHeight",thingsHeight);
+            console.log("thingLeft",thingWidth);
+            console.log("thingTop",thingHeight);
+            thingLeft = (wf_width*things_wh  - thingWidth)/2,
+            // thingTop = ((wf_width*things_wh) / things_bili - thingHeight - chooseHeight)/2;
+            thingTop = ((wf_width*things_wh) / things_bili - thingHeight)/2;
+            // thingLeft = 117;
+            // thingTop = 161;
+            console.log("thingLeft",thingLeft);
+            console.log("thingTop",thingTop);
         if($(this).hasClass('goods-radio')){/*单选物品*/
             klassRadio = 'thing-radio';
             $('.'+klassRadio).remove();
         }
-        $things.append('<div class="thing '+klassRadio+'" id="thing-'+timeStamp+'" style="width:'+thingWidth+'px;height:'+thingHeight+'px;left:'+thingLeft+'px;top:'+thingTop+'px;"><img src="'+imgUrl+thingImg+'"><div class="del"></div><div class="big"></div></div>');            
+        $things.append('<div class="thing '+klassRadio+'" id="thing-'+timeStamp+'" style="width:'+thingWidth+'px;height:'+thingHeight+'px;left:'+thingLeft+'px;top:'+thingTop+'px;"><img src="'+imgUrl+thingImg+'"><div id="del" class="del"></div><div id="big" class="big"></div></div>');
         showbag.touchScale('#thing-'+timeStamp);
     }).on('click','.choose-toggle',function(){
         $choose.toggleClass('choose-down');
@@ -160,45 +162,45 @@ showbag.init = function(){
         var index = $(this).index();
         console.log("index",index);
         if (index === 0){
-            $(".jiantou2").css("left","0.8rem");
-            $(".choose-list-wrap").css("width",$("#goods1 li").length*1.15 + "rem")
-            $("#icon-a").css("backgroundImage","url('../imgs/jiaju1_1.png')");
-            $("#icon-b").css("backgroundImage","url('../imgs/jiaju2_2.png')");
-            $("#icon-c").css("backgroundImage","url('../imgs/jiaju3_2.png')");
-            $("#icon-d").css("backgroundImage","url('../imgs/jiaju4_2.png')");
-            $("#icon-e").css("backgroundImage","url('../imgs/jiaju5_2.png')");
+            $(".jiantou2").css("left","7.2rem");
+            $(".choose-list-wrap").css("width",$("#goods1 li").length*6.5 + "rem")
+            $("#icon-a").css("backgroundImage","url('./img/jiaju1_1.png')");
+            $("#icon-b").css("backgroundImage","url('./img/jiaju2_2.png')");
+            $("#icon-c").css("backgroundImage","url('./img/jiaju3_2.png')");
+            $("#icon-d").css("backgroundImage","url('./img/jiaju4_2.png')");
+            $("#icon-e").css("backgroundImage","url('./img//jiaju5_2.png')");
         }else if (index === 1) {
-            $(".jiantou2").css("left","1.92rem");
-            $(".choose-list-wrap").css("width",$("#goods2 li").length*1.15 + "rem")
-            $("#icon-a").css("backgroundImage","url('../imgs/jiaju1_2.png')");
-            $("#icon-b").css("backgroundImage","url('../imgs/jiaju2_1.png')");
-            $("#icon-c").css("backgroundImage","url('../imgs/jiaju3_2.png')");
-            $("#icon-d").css("backgroundImage","url('../imgs/jiaju4_2.png')");
-            $("#icon-e").css("backgroundImage","url('../imgs/jiaju5_2.png')");
+            $(".jiantou2").css("left","12.2rem");
+            $(".choose-list-wrap").css("width",$("#goods2 li").length*6.5 + "rem")
+            $("#icon-a").css("backgroundImage","url('./img/jiaju1_2.png')");
+            $("#icon-b").css("backgroundImage","url('./img/jiaju2_1.png')");
+            $("#icon-c").css("backgroundImage","url('./img/jiaju3_2.png')");
+            $("#icon-d").css("backgroundImage","url('./img/jiaju4_2.png')");
+            $("#icon-e").css("backgroundImage","url('./img/jiaju5_2.png')");
         }else if (index === 2) {
-            $(".jiantou2").css("left","3.01rem");
-            $(".choose-list-wrap").css("width",$("#goods3 li").length*1.15 + "rem")
-            $("#icon-a").css("backgroundImage","url('../imgs/jiaju1_2.png')");
-            $("#icon-b").css("backgroundImage","url('../imgs/jiaju2_2.png')");
-            $("#icon-c").css("backgroundImage","url('../imgs/jiaju3_1.png')");
-            $("#icon-d").css("backgroundImage","url('../imgs/jiaju4_2.png')");
-            $("#icon-e").css("backgroundImage","url('../imgs/jiaju5_2.png')");
+            $(".jiantou2").css("left","18.9rem");
+            $(".choose-list-wrap").css("width",$("#goods3 li").length*6.5 + "rem")
+            $("#icon-a").css("backgroundImage","url('./img/jiaju1_2.png')");
+            $("#icon-b").css("backgroundImage","url('./img/jiaju2_2.png')");
+            $("#icon-c").css("backgroundImage","url('./img/jiaju3_1.png')");
+            $("#icon-d").css("backgroundImage","url('./img/jiaju4_2.png')");
+            $("#icon-e").css("backgroundImage","url('./img/jiaju5_2.png')");
         }else if (index === 3) {
-            $(".jiantou2").css("left","4.1rem");
-            $(".choose-list-wrap").css("width",$("#goods4 li").length*1.15 + "rem")
-            $("#icon-a").css("backgroundImage","url('../imgs/jiaju1_2.png')");
-            $("#icon-b").css("backgroundImage","url('../imgs/jiaju2_2.png')");
-            $("#icon-c").css("backgroundImage","url('../imgs/jiaju3_2.png')");
-            $("#icon-d").css("backgroundImage","url('../imgs/jiaju4_1.png')");
-            $("#icon-e").css("backgroundImage","url('../imgs/jiaju5_2.png')");
+            $(".jiantou2").css("left","25.6rem");
+            $(".choose-list-wrap").css("width",$("#goods4 li").length*6.5 + "rem")
+            $("#icon-a").css("backgroundImage","url('./img/jiaju1_2.png')");
+            $("#icon-b").css("backgroundImage","url('./img/jiaju2_2.png')");
+            $("#icon-c").css("backgroundImage","url('./img/jiaju3_2.png')");
+            $("#icon-d").css("backgroundImage","url('./img/jiaju4_1.png')");
+            $("#icon-e").css("backgroundImage","url('./img/jiaju5_2.png')");
         } else if (index === 4) {
-            $(".jiantou2").css("left","5.16rem");
-            $(".choose-list-wrap").css("width",$("#goods5 li").length*1.15 + "rem")
-            $("#icon-a").css("backgroundImage","url('../imgs/jiaju1_2.png')");
-            $("#icon-b").css("backgroundImage","url('../imgs/jiaju2_2.png')");
-            $("#icon-c").css("backgroundImage","url('../imgs/jiaju3_2.png')");
-            $("#icon-d").css("backgroundImage","url('../imgs/jiaju4_2.png')");
-            $("#icon-e").css("backgroundImage","url('../imgs/jiaju5_1.png')");
+            $(".jiantou2").css("left","32.5rem");
+            $(".choose-list-wrap").css("width",$("#goods5 li").length*6.5 + "rem")
+            $("#icon-a").css("backgroundImage","url('./img/jiaju1_2.png')");
+            $("#icon-b").css("backgroundImage","url('./img/jiaju2_2.png')");
+            $("#icon-c").css("backgroundImage","url('./img/jiaju3_2.png')");
+            $("#icon-d").css("backgroundImage","url('./img/jiaju4_2.png')");
+            $("#icon-e").css("backgroundImage","url('./img/jiaju5_1.png')");
         }
 
         showbag.loadImageOther(imgList[index]);
@@ -247,12 +249,17 @@ function startGame(){
         $welcome.remove();
     },500);
 
-    $(".choose-list-wrap").css("width",$("#goods1 li").length*1.15 + "rem")
+    $(".choose-list-wrap").css("width",$("#goods1 li").length*6.5 + "rem")
 
     $(".things").css("width",wf_width*things_wh + "px");
     $(".things").css("height",(wf_width*things_wh) / things_bili + "px");
     $(".things").css("left",(wf_width-wf_width*things_wh) / 2 + "px");
-    $(".things").css("top", "45px");
+    $(".things").css("top", "4.5rem");
+
+    $(".things2").css("width",wf_width*things_wh + 5 + "px");
+    $(".things2").css("height",(wf_width*things_wh) / things_bili + 10 + "px");
+    $(".things2").css("left",(wf_width-wf_width*things_wh) / 2 +5 + "px");
+    $(".things2").css("top", "4rem");
     /*生成当前地址二维码*/
     showbag.onloadJS(cdnUrl+'/js/qrcode.min.js', function(){
         var showbagQrcode = new QRCode('linkQrcode',{
@@ -437,7 +444,6 @@ showbag.touchScale = function(thing) {
             fingers = event.touches.length;   /* 屏幕上手指数量*/
         /*手指放到屏幕上的时候，还没有进行其他操作*/
         if (event.type == 'touchstart') {
-            console.log("start")
             originalWidth = $touch.width();
             originalHeight = $touch.height();
             baseScale = parseFloat(originalWidth/originalHeight);
@@ -457,7 +463,6 @@ showbag.touchScale = function(thing) {
         }
         /*手指在屏幕上滑动*/
         else if (event.type == 'touchmove') {
-            console.log("touchmove")
             if (fingers == 2) {
                 /* 缩放图片的时候X,Y坐标滑动变化值*/
                 endX = Math.abs(touch1.pageX - touch2.pageX) - startX;
@@ -473,8 +478,7 @@ showbag.touchScale = function(thing) {
             }else if (fingers == 1) {
                 x2 = touch1.pageX;
                 y2 = touch1.pageY;
-                console.log("x2",x2)
-                console.log("y2",y2)
+
                 if (one) {
                     // if (x2>70) {
                     $self.css({
@@ -487,7 +491,6 @@ showbag.touchScale = function(thing) {
         }
         /*手指移开屏幕*/
         else if (event.type == 'touchend') {
-            console.log("end")
             /* 手指移开后保存图片的宽*/
             originalWidth = $touch.width(),
             originalHeight = $touch.width(),

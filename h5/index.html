@@ -8,16 +8,21 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
     <link rel="stylesheet" type="text/css" href="css/main.css?v=2223"/>
+    <link rel="stylesheet" type="text/css" href="css/qipan.css?v=2223"/>
+    <link rel="stylesheet" type="text/css" href="baifang/css/showbag.css?v=2223"/>
     <title></title>
     <script src="js/jquery.js"></script>
+    <script src="./js/html2canvas.js"></script>
     <script type="text/javascript" src="js/layout.js"></script>
     <script type="text/javascript" src="js/imagesloaded.pkgd.js"></script>
-<!--    <script src="https://www.remmli.com/h5/js/vconsole.min.js"></script>-->
-<!--    <script>-->
-<!--        var vConsole = new VConsole();-->
-<!--        console.log(window.userData);-->
-<!--    </script>-->
+    <!--<script src="https://www.remmli.com/h5/js/vconsole.min.js"></script>-->
+    <!--<script>-->
+    <!--    var vConsole = new VConsole();-->
+    <!--    console.log(window.userData);-->
+    <!--</script>-->
     <script>
+        var jq = jQuery.noConflict();
+
         function getSms() {
             $.ajax({
                 type: "POST", //提交方式
@@ -29,27 +34,547 @@
                 }
             });
         }
-
     </script>
 </head>
 <body>
-    <div class="loading-v" style="display: block;">
-        <img src="./img/z1.png" class="t1 loading-img" />
-        <img src="./img/z2.png" style="opacity: 0;" id="z2" class="t1 loading-img" />
-        <div class="loading-bar">
-            <div class="bar-v"></div>
+<div class="loading-v" style="display: none;">
+    <img src="./img/z1.png" class="t1 loading-img"/>
+    <img src="./img/z2.png" style="opacity: 0;" id="z2" class="t1 loading-img"/>
+    <div class="loading-bar">
+        <div class="bar-v"></div>
+    </div>
+    <div class="bf" id="bfb">0%</div>
+    <!--        <img id="logo"  class="loading-img" src="./img/logo.png">-->
+    <img id="start_btn" class="loading-img" src="./img/btn1.png">
+</div>
+<div class="select-v" style="display: none;">
+    <img src="./img/t22.png" class="select-tt"/>
+    <img src="./img/ditu1.png" data-id="1" class="select-item select-item1"/>
+    <img src="./img/ditu2.png" data-id="2" class="select-item select-item2"/>
+    <img src="./img/ditu3.png" data-id="3" class="select-item select-item3"/>
+    <img src="./img/ditu4.png" data-id="4" class="select-item select-item4"/>
+    <img src="./img/btn5.png" class="btn5"/>
+</div>
+<div class="bianfang-v" style="display: none;">
+    <input type="hidden" name="requestUrl" value=".."/>
+    <!--    <canvas id="drawing" class="drawing" onclick="showbag.take.showdraw();"></canvas>-->
+    <div class="game_bg"></div>
+    <div class="things2"></div>
+    <div id="mythings" class="things">
+    </div>
+    <img class="g_btn1" src="./img/g_btn1.png">
+    <img class="g_btn2" src="./img/g_btn2.png">
+    <img class="g_btn3" src="./img/g_btn3.png">
+    <div class="aite">
+        @吴雨思的家
+    </div>
+    <div class="aite2">
+        @吴雨思的家
+    </div>
+    <div class="aite3">
+        @吴雨思的家
+    </div>
+    <div class="choose">
+        <div style="display: none;" class="choose-take" onclick="showbag.take();"></div>
+        <div class="choose-toggle" style="display: none;" title="收起/展开"></div>
+        <div class="choose-list2"></div>
+        <div class="choose-list transition" id="chooseListScroll">
+            <div class="choose-list-wrap">
+                <ul id="goods1">
+                    <li class="goods" data-width="2.3" data-height="2.1" data-img="1/1.png">
+                        <img class="goods-img" src="./baifang/png/tu/1/1.png">
+                    </li>
+                    <li class="goods" data-width="3.3" data-height="2.8" data-img="1/2.png">
+                        <img class="goods-img" src="./baifang/png/tu/1/2.png">
+                    </li>
+                    <li class="goods" data-width="2.75" data-height="2.75" data-img="1/5.png">
+                        <img class="goods-img" src="./baifang/png/tu/1/5.png">
+                    </li>
+                    <li class="goods" data-width="3.8" data-height="4.5" data-img="1/7.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/7.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="4.5" data-img="1/8.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/8.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="4.5" data-img="1/9.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/9.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="4.5" data-img="1/10.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/10.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.2" data-img="1/11.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/11.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.85" data-img="1/14.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/14.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.85" data-img="1/15.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/15.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.2" data-img="1/17.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/17.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.2" data-img="1/18.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/18.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.4" data-img="1/23.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/23.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.6" data-img="1/24.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/24.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.8" data-img="1/32.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/32.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.8" data-img="1/36.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/36.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.8" data-img="1/37.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/37.png">
+                    </li>
+                    <li class="goods" data-width="3.25" data-height="3.2" data-img="1/39.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/39.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.85" data-img="1/41.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/41.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.85" data-img="1/56.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/56.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.85" data-img="1/63.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/63.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.85" data-img="1/66.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/66.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="4.5" data-img="1/70.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/70.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.85" data-img="1/74.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/74.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.85" data-img="1/78.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/78.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.85" data-img="1/79.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/79.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.85" data-img="1/80.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/80.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.85" data-img="1/81.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/81.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="4.55" data-img="1/82.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/82.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.85" data-img="1/83.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/83.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.85" data-img="1/84.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/84.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.85" data-img="1/85.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/85.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.85" data-img="1/86.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/86.png">
+                    </li>
+                    <li class="goods" data-width="3.85" data-height="3.85" data-img="1/87.png">
+                        <img class="goods-img2" src="./baifang/png/tu/1/87.png">
+                    </li>
+                </ul>
+
+                <ul id="goods2" class="hide">
+                    <li class="goods" data-width="1.6" data-height="2.8" data-img="2/21.png">
+                        <img class="goods-img2" src="./baifang/png/tu/2/21.png">
+                    </li>
+                    <li class="goods" data-width=".8" data-height="1.0" data-img="2/29.png">
+                        <img class="goods-img2" src="./baifang/png/tu/2/29.png">
+                    </li>
+                    <li class="goods" data-width=".8" data-height="0.8" data-img="2/31.png">
+                        <img class="goods-img2" src="./baifang/png/tu/2/31.png">
+                    </li>
+                    <li class="goods" data-width="2.85" data-height="3.15" data-img="2/33.png">
+                        <img class="goods-img2" src="./baifang/png/tu/2/33.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="2.6" data-img="2/45.png">
+                        <img class="goods-img2" src="./baifang/png/tu/2/45.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="2.8" data-img="2/60.png">
+                        <img class="goods-img2" src="./baifang/png/tu/2/60.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="2.8" data-img="2/61.png">
+                        <img class="goods-img2" src="./baifang/png/tu/2/61.png">
+                    </li>
+                    <li class="goods" data-width="2.4" data-height="2.4" data-img="2/71.png">
+                        <img class="goods-img2" src="./baifang/png/tu/2/71.png">
+                    </li>
+                    <li class="goods" data-width="2.6" data-height="3.8" data-img="2/76.png">
+                        <img class="goods-img2" src="./baifang/png/tu/2/76.png">
+                    </li>
+                    <li class="goods" data-width="2.3" data-height="2.3" data-img="2/77.png">
+                        <img class="goods-img2" src="./baifang/png/tu/2/77.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="2.8" data-img="2/78.png">
+                        <img class="goods-img2" src="./baifang/png/tu/2/78.png">
+                    </li>
+                    <li class="goods" data-width="3.4" data-height="3.4" data-img="2/79.png">
+                        <img class="goods-img2" src="./baifang/png/tu/2/79.png">
+                    </li>
+                </ul>
+                <ul id="goods3" class="hide">
+                    <li class="goods" data-width="2.8" data-height="3.25" data-img="3/13.png">
+                        <img class="goods-img2" src="./baifang/png/tu/3/13.png">
+                    </li>
+                    <li class="goods" data-width="3.2" data-height="3.4" data-img="3/16.png">
+                        <img class="goods-img2" src="./baifang/png/tu/3/16.png">
+                    </li>
+                    <li class="goods" data-width="3.2" data-height="3.0" data-img="3/25.png">
+                        <img class="goods-img2" src="./baifang/png/tu/3/25.png">
+                    <li class="goods" data-width="3.2" data-height="3.0" data-img="3/26.png">
+                        <img class="goods-img2" src="./baifang/png/tu/3/26.png">
+                    </li>
+                </ul>
+                <ul id="goods4" class="hide">
+                    <li class="goods" data-width="2.8" data-height="2.6" data-img="4/4.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/4.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="2.8" data-img="4/19.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/19.png">
+                    </li>
+                    <li class="goods" data-width="2.6" data-height="3.8" data-img="4/20.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/20.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="2.8" data-img="4/22.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/22.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="3.7" data-img="4/26.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/26.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="3.7" data-img="4/27.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/27.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="2.8" data-img="4/38.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/38.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="2.8" data-img="4/40.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/40.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="2.8" data-img="4/42.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/42.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="2.8" data-img="4/43.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/43.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="2.8" data-img="4/44.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/44.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="3.8" data-img="4/51.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/51.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="2.8" data-img="4/52.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/52.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="2.8" data-img="4/53.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/53.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="3.0" data-img="4/54.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/54.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="2.8" data-img="4/55.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/55.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="2.8" data-img="4/57.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/57.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="2.8" data-img="4/58.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/58.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="2.6" data-img="4/64.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/64.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="2.8" data-img="4/65.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/65.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="2.8" data-img="4/67.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/67.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="2.8" data-img="4/68.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/68.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="2.8" data-img="4/69.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/69.png">
+                    </li>
+                    <li class="goods" data-width="2.8" data-height="2.6" data-img="4/80.png">
+                        <img class="goods-img2" src="./baifang/png/tu/4/80.png">
+                    </li>
+                </ul>
+                <ul id="goods5" class="hide">
+                </ul>
+            </div>
         </div>
-        <div class="bf" id="bfb">0%</div>
-        <img id="logo"  class="loading-img" src="./img/logo.png">
-        <img id="start_btn"  class="loading-img" src="./img/btn1.png">
+        <div class="choose-cate">
+            <ul>
+                <li style="margin-left:3rem;" class="current"><span class="icon icon-a" id="icon-a">包</span></li>
+                <li><span class="icon icon-b" id="icon-b">必</span></li>
+                <li><span class="icon icon-c" id="icon-c">女</span></li>
+                <li><span class="icon icon-d" id="icon-d">食</span></li>
+                <li><span class="icon icon-e" id="icon-e">怪</span></li>
+            </ul>
+        </div>
+
+        <img class="jiantou" src="./img/jiantou22.png">
+        <img class="jiantou2" src="./img/upjiao.png">
     </div>
-    <div class="select-v"  style="display: none;">
-        <div id="select-item1" class="select-item">东京</div>
-        <div class="select-item">千鹤町</div>
-        <div class="select-item">爱媛县</div>
-        <div class="select-item">西伯利亚</div>
+    <div class="result hide"><img class="image"/>
+        <div class="bot">
+            <div class="btn"><a href="javascript:;" onclick="showbag.take.back();">返回修改</a><a
+                    href="javascript:;">领取红包</a>
+            </div>
+            <div class="tips">长按上图即可保存图片分享</div>
+        </div>
     </div>
+
+    <div class="welcome" style="display: none;">
+        <div class="bg"></div>
+        <div class="percent"></div>
+        <div class="btn"><a href="javascript:;">点击晒你包里有啥</a></div>
+    </div>
+    <div id="linkQrcode" class="hide"></div>
+</div>
+<div class="qipan-v" style="display: none;">
+    <div class="game-yxgz" style="display: none">
+        <img src="./img/gz.png" class="yxgz_img">
+        <img src="./img/chax.png" id="yxgz_x">
+    </div>
+    <div class="game-v">
+        <img class="qd_title" src="./img/t222.png">
+        <div class="qiandao">
+            <div class="qiandao-item">
+                <img class="qiandao-icon" src="./img/gou.png">
+                <span class="qiandao-title">第一天</span>
+            </div>
+            <div class="qiandao-item">
+                <img class="qiandao-icon" src="./img/gou2.png">
+                <span class="qiandao-title">第二天</span>
+            </div>
+            <div class="qiandao-item2">
+                <img class="qiandao-icon2" src="./img/lw11.png">
+            </div>
+            <div class="qiandao-item2">
+                <img class="qiandao-icon2" src="./img/lw22.png">
+            </div>
+            <div class="qiandao-item2">
+                <img class="qiandao-icon2" src="./img/lw11.png">
+            </div>
+        </div>
+        <div class="qiandao-bar">
+            <div class="qiandao-bar2">
+
+            </div>
+        </div>
+        <div class="qipan">
+            <div id="qz" class="qz">
+                <img class="qz_tou" src="./img/qz.png">
+            </div>
+        </div>
+        <!--    <div id="saizi">-->
+        <!--        开始-->
+        <!--    </div>-->
+        <img class="yxgz" src="./img/yxgz.png">
+        <img class="g_qzz" src="./img/g_qzz.png">
+
+        <img src="./img/chuan.png" id="chuan">
+        <div class="game_num">1</div>
+        <div class="game_share">
+            <img src="./img/add.png" id="add">
+        </div>
+
+        <div class="saizibg">
+            <img src="./img/num1.png" id="saizi">
+        </div>
+    </div>
+</div>
+<div class="lihe-v" style="display: block;">
+    <div class="lihe-bg">
+    </div>
+    <div class="lihe-v1" style="display: none;">
+        <img class="lihe-title" src="./img/t333.png">
+        <img class="lihe-img" src="./img/daoju.png">
+        <img class="lihe-btn" src="./img/btn2.png">
+    </div>
+    <div class="lihe-v1" style="display: none;">
+        <img class="lihe-title" src="./img/t333.png">
+        <img class="lihe-img" src="./img/daoju2.png">
+        <img class="lihe-btn" src="./img/btn2.png">
+    </div>
+    <div class="lihe-v2" style="display: block;">
+        <div class="kaixiang">
+            <div class="title1">龙族幻想手游里的</div>
+            <div class="title2">清凉小板凳</div>
+            <div class="title3">清凉小板凳</div>
+            <div class="daoju-v">
+                <img src="./baifang/png/tu/1/1.png">
+            </div>
+            <div class="title4">人生就像咸鱼</div>
+            <div class="title5">爱躺才会赢</div>
+        </div>
+        <!--        <img  class="lihe-title" src="./img/t333.png">-->
+<!--        <img class="lihe-img2" src="./img/xiaoyizi.png">-->
+<!--        <img class="lihe-btn2" src="./img/btn6.png">-->
+    </div>
+</div>
+<div class="lihe-v-btn">
+
+</div>
+
+
+<div class="fangcz-v"  style="display: none;">
+    <div class="fangcz-bg">
+    </div>
+    <img src="" id="share_img" class="fancz-shu"  style="display: none; z-index: 999;">
+    <div class="fancz-shu" id="fancz-shu">
+        <div id="address" class="s_wenzi1">地址：千鹤町</div>
+        <div id="huxing" class="s_wenzi2">户型：四合院</div>
+        <div id="name"  class="s_wenzi3">户主：@我是xxxxxxxx</div>
+        <div class="shengc" style="display: block;
+    position: absolute;
+    top: -8rem;
+    left: -2rem;">
+            <img id="up" src="img/up.png" class="up_fc">
+            <img id="down" src="img/down.png" class="down_fc">
+            <div class="xuanyan">
+            </div>
+            <img src="./img/btn3.png" class="hetu_btn">
+        </div>
+
+        <div class="xuanyan2" id="xuanyan0" data-id="0">
+            选择你的小屋宣言
+        </div>
+        <div class="xuanyan2" id="xuanyan1" data-id="1" style="display: none;">
+            我就要每块地砖都不一样
+        </div>
+        <div class="xuanyan2" id="xuanyan2" data-id="2" style="line-height: 3rem;display: none;">
+            用房间来盛满<br/> 我的幻想梦境
+        </div>
+        <div class="xuanyan2" id="xuanyan3" data-id="3" style="line-height: 3rem;display: none;">
+            房间有活力<br/>才能熬到深夜也不疲
+        </div>
+        <div class="xuanyan2" id="xuanyan4" data-id="4" style="line-height: 3rem;display: none;">
+            每一处都是厨房<br/>才能每一秒都美味难挡
+        </div>
+        <div class="xuanyan2" id="xuanyan5" data-id="5" style="line-height: 3rem;display: none;">
+            只有读懂我的房<br/>才能读懂我
+        </div>
+
+        <div class="yinzhang" style="display: none;
+    position: absolute;
+    top: -8rem;
+    left: -2rem;">
+
+            <img src="./img/logo22.png" class="logo22">
+            <img src="./img/yinzhang.png" class="yinzhang_img">
+            <div class="s_wenzi4">X月X日龙族家园即将开启</div>
+            <div class="s_wenzi5">来龙族开区幻想生活</div>
+            <div class="s_wenzi6">X month X dragon family home is about to open<br/>
+                Come to the Dragon Family to open a fantasy life
+            </div>
+            <img src="./img/erweiam.jpg" class="erweiam">
+        </div>
+
+        <img src="./img/ces.jpg" class="hetu">
+    </div>
+</div>
+<div class="xuanzhe-v" style="display: none;">
+    <div class="xuanzhe-bg">
+    </div>
+    <div class="xuanzhe-title">
+        X月X日龙族家园即将开启
+    </div>
+    <div class="xuanzhe-quyu">
+        <div class="xuanzhe-item xuanzhe-item-sle">
+            <img src="./baifang/png/tu/1/1.png">
+        </div>
+        <div class="xuanzhe-item">
+            <img src="./baifang/png/tu/1/2.png">
+        </div>
+        <div class="xuanzhe-item">
+            <img src="./baifang/png/tu/1/2.png">
+        </div>
+        <div class="xuanzhe-item">
+            <img src="./baifang/png/tu/1/6.png">
+        </div>
+        <div class="xuanzhe-item">
+            <img src="./baifang/png/tu/1/5.png">
+        </div>
+        <div class="xuanzhe-item">
+            <img src="./baifang/png/tu/1/6.png">
+        </div>
+        <div class="xuanzhe-item">
+            <img src="./baifang/png/tu/1/7.png">
+        </div>
+        <div class="xuanzhe-item">
+            <img src="./baifang/png/tu/1/11.png">
+        </div>
+        <div class="xuanzhe-item">
+            <img src="./baifang/png/tu/1/1.png">
+        </div>
+    </div>
+    <img src="./img/tt112.png" class="tt112">
+    <img src="./img/btn4.png" class="btn4">
+    <img src="./img/ft.png" class="ft">
+</div>
+<div class="userInfo" style="display: none;">
+    <div class="userInfo-bg">
+    </div>
+    <img src="./img/logo.png" class="logo2211">
+    <img src="./img/dt1.png" class="dt1">
+    <img src="./img/dt2.png" class="dt2">
+    <div class="select-input1">
+        <select class="my-select">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="opel">Opel</option>
+            <option value="audi">Audi</option>
+        </select>
+    </div>
+    <div class="select-input2">
+        <select class="my-select">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="opel">Opel</option>
+            <option value="audi">Audi</option>
+        </select>
+    </div>
+    <img src="./img/dt3.png" class="dt3">
+
+    <div class="select-input3">
+        <select class="my-select">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="opel">Opel</option>
+            <option value="audi">Audi</option>
+        </select>
+    </div>
+
+    <div class="select-input4">
+        <select class="my-select">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="opel">Opel</option>
+            <option value="audi">Audi</option>
+        </select>
+    </div>
+
+    <img src="./img/suer.png" class="suer">
+    <img src="./img/cancl.png" class="cancl">
+</div>
 </body>
 
 <script src="./js/main.js"></script>
+<script src="./js/zepto.js"></script>
+<script src="./baifang/js/showbag.js"></script>
+<script src="./qipan/config.js"></script>
+<script src="./js/qpanjs.js"></script>
 </html>

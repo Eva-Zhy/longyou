@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/main.css?v=2223"/>
+    <link rel="stylesheet" type="text/css" href="baifang/css/showbag.css?v=2223"/>
+    <script type="text/javascript" src="js/layout.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/zepto.js"></script>
+    <script src="./js/html2canvas.js"></script>
+
+    <!--    <script src="./baifang/js/showbag.js"></script>-->
+</head>
+<body>
+<div class="things" id="mythings" style="width: 40rem; height: 30rem;">
+    <div class="thing  thing-touch" id="thing-5283" style="width:161.1328125px;height:161.1328125px;left:84.43359375px;top:130.97205528846152px;"><img src="./baifang/png/tu/1/5.png"><div id="del" class="del"></div><div id="big" class="big"></div></div>
+</div>
+<img style="position: absolute;z-index: 99;  bottom: 0;  width:40rem;" src="./img/g_btn1.png" id="showimg">
+</body>
+
+<script>
+    html2canvas(document.querySelector("#mythings")).then(function (canvas) {
+//            document.querySelector(".share-img").appendChild(canvas);
+        $('#showimg').attr('src',canvas.toDataURL('image/png'))
+    });
+</script>
+</html>
