@@ -7,7 +7,7 @@ body,html {
 .yxgz_img{
     width: 100%;
     position: absolute;
-    top: 2rem;
+    top: 1rem;
 }
 
 .game-v{
@@ -17,6 +17,21 @@ body,html {
     z-index: 1;
     background-image: url("../img/bg2.jpg");
     background-size: 100% 100%;
+}
+
+.loadingimgs{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    z-index: -1;
+    opacity: 0;
+    top: 0;
+    left: 0;
+}
+
+.img100{
+    width: 100%;
+    height: 100%;
 }
 
 .game-yxgz{
@@ -55,14 +70,14 @@ body,html {
     text-align: center;
     display: block;
     color: white;
-    font-size: 0.7rem;
+    font-size: 0.6rem;
 }
 
 .qiandao-icon{
     width: 1.8rem;
     margin: 0 auto;
     display: block;
-    margin-top: 0.3rem;
+    margin-top: 0.2rem;
 }
 .qiandao-icon2{
     width: 4rem;
@@ -85,7 +100,7 @@ body,html {
     width: 10rem;
     position: absolute;
     left: 15rem;
-    bottom: 3rem;
+    bottom: 2.5rem;
     z-index: 2;
 }
 
@@ -94,7 +109,7 @@ body,html {
     height: 3.6rem;
     position: absolute;
     left: 9.1rem;
-    bottom: 8.1rem;
+    bottom: 6.1rem;
     background-color: #ffffff;
     border: 2px solid #4b42f5;
     color: #4b42f5;
@@ -109,20 +124,21 @@ body,html {
 .saizibg{
     width: 10rem;
     height: 10rem;
-    z-index: 1;
+    z-index: 90;
     background-color: #c03f6a;
     position: absolute;
     border:2px solid #4b42f5;
     left: 15rem;
-    bottom: 9rem;
+    bottom: 7rem;
     border-radius: 50%;
 }
 
 #saizi{
-    width: 9rem;
-    height: 9rem;
+    width: 8rem;
+    height: 8rem;
     margin: 0 auto;
     display: block;
+    margin-top: 1rem;
 }
 
 #add{
@@ -138,7 +154,7 @@ body,html {
     height: 3.6rem;
     position: absolute;
     right: 9.35rem;
-    bottom: 8.2rem;
+    bottom: 6.2rem;
     background-color: #ffffff;
     border: 2px solid #c03f6a;
     border-radius: 50%;
@@ -149,8 +165,8 @@ body,html {
     width: 16rem;
     position: absolute;
     left: 12rem;
-    bottom: 8rem;
-    z-index: 2;
+    bottom: 6rem;
+    z-index: 99;
 }
 .qiandao-bar2{
     width: 30%;
@@ -206,7 +222,7 @@ body,html {
     position: absolute;
     width: 100%;
     z-index: 2;
-    top: 41%;
+    top: 37%;
     background-image: url("../img/bg.png");
     background-size: 100% 100%;
 }

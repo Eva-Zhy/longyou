@@ -239,6 +239,18 @@ body,html {
     color: #000;
     text-align-last: center;
 }
+
+.tishi-v{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 1.5rem;
+    text-align: center;
+    color: #fff;
+    z-index: 99;
+    font-size: 2rem;
+}
+
 select{
     -webkit-appearance:none;appearance:none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -267,6 +279,68 @@ select{
     z-index: 5;
 }
 
+.xuyao{
+    position: absolute;
+    width: 40rem;
+    top: 6rem;
+    left: 0rem;
+    z-index: 5;
+}
+.tishi1{
+    width: auto;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    min-width: 10rem;
+    height: 2.8rem;
+    background-image: url(../img/tishi1.png);
+    background-size: 100% 100%;
+    position: absolute;
+    left: 6.5rem;
+    z-index: 999;
+    top: 15.5rem;
+    color: #ffffff;
+    text-align: center;
+    line-height: 3.2rem;
+    font-size: 1rem;
+    opacity: 0;
+}
+.tishi2{
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    width: 20rem;
+    height: 8rem;
+    background-image: url(../img/tishi2.png);
+    background-size: 100% 100%;
+    position: absolute;
+    left: 10rem;
+    z-index: 9999;
+    bottom: 17.5rem;
+    color: #ffffff;
+    text-align: center;
+    /*line-height: 3.2rem;*/
+    font-size: 1.5rem;
+    opacity: 0;
+    display: flex;
+     align-items: center;
+   justify-content: center;
+    flex-direction: column;
+}
+.title_web{
+    position: absolute;
+    width: 30rem;
+    height: 3rem;
+    line-height: 3rem;
+
+    top: 11rem;
+    background-image: url("../img/xiezi.png");
+    background-size: 100% 100%;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #fff;
+    left: 5rem;
+    z-index: 5;
+}
+
 .dt2{
     position: absolute;
     width: 40rem;
@@ -288,7 +362,7 @@ select{
     height: 56rem;
     /*top: 50%;*/
     /*left: 50%;*/
-    top: 4rem;
+    top: 6rem;
     left: 2rem;
     /*transform: translate(-18rem,-28rem);*/
     background-image: url("../img/fcz_bg.png");
@@ -344,21 +418,30 @@ select{
     position: absolute;
     width: auto;
     top: 10.5rem;
-    left: 6.8rem;
+    left: 7.2rem;
     font-size: 3.4rem;
     font-weight: 600;
     font-family: 'RTWSYueGoTrial';
     z-index: 99;
     text-decoration: none;
-    background-image: -webkit-linear-gradient(top,#fff, #c0e7ff);
-    -webkit-background-clip: text; /*必需加前缀 -webkit- 才支持这个text值 */
-    -webkit-text-fill-color: transparent; /*text-fill-color会覆盖color所定义的字体颜色： */
+    color: #fff;
+    /*background-image: -webkit-linear-gradient(top,#fff, #c0e7ff);*/
+    /*-webkit-background-clip: text; !*必需加前缀 -webkit- 才支持这个text值 *!*/
+    /*-webkit-text-fill-color: transparent; !*text-fill-color会覆盖color所定义的字体颜色： *!*/
+}
+.lihe-v{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
 }
 .title3{
     position: absolute;
     width: auto;
     top: 10.5rem;
-    left: 6.8rem;
+    left: 7.2rem;
     font-size: 3.4rem;
     font-weight: 600;
     font-family: 'RTWSYueGoTrial';
@@ -374,7 +457,7 @@ select{
     width: 28rem;
     height: 19rem;
     position: absolute;
-    left: 3rem;
+    left: 4rem;
     top: 16rem;
 }
 
@@ -384,15 +467,62 @@ select{
     display: block;
 }
 
+.lkzb{
+    width: 15rem;
+    position: absolute;
+    left: 3rem;
+    bottom: 6rem;
+    z-index: 999;
+}
+.lihe-x{
+    width: 2rem;
+    position: absolute;
+    right: 6rem;
+    top: 7rem;
+    z-index: 999;
+}
+.share_img2{
+
+}
+.xyyx{
+    width: 15rem;
+    position: absolute;
+    right: 3rem;
+    bottom: 6rem;
+    z-index: 999;
+}
+.erweima2{
+    width: 23rem;
+    position: absolute;
+    right: 2rem;
+    bottom: 1rem;
+    z-index: 10;
+}
+.btn6{
+    width: 20rem;
+    position: absolute;
+    right: 10rem;
+    bottom: 4rem;
+    z-index: 999;
+}
+
 .kaixiang{
     position: absolute;
-    width: 34rem;
-    height: 52rem;
-    top: 3rem;
-    left:3rem;
+    width: 36rem;
+    height: 55rem;
+    top: 0.5rem;
+    left:2rem;
     background-image: url("../img/lwbg.png");
     background-size: 100% 100%;
     z-index: 99;
+}
+.kaixiang-img{
+    position: absolute;
+    width: 36rem;
+    height: 55rem;
+    top: 0.5rem;
+    left:2rem;
+    z-index: 100;
 }
 
 .fancz-img {
@@ -419,7 +549,7 @@ select{
     width: auto;
     font-size: 1.3rem;
     top: 13rem;
-    left: 12rem;
+    left: 6rem;
 }
 
 .xuanyan{
@@ -437,22 +567,13 @@ select{
      writing-mode: vertical-lr;
 }
 
-.xuanyan2{
+.xuanyan2 {
     width: 6rem;
-    height: 22rem;
+    height: 24rem;
     position: absolute;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    top: 18rem;
-    font-weight: 600;
-    font-size: 1.9rem;
-    color: #000;
-    text-align: center;
-    line-height: 6rem;
+    top: 19rem;
     left: 3rem;
     z-index: 6;
-    -webkit-writing-mode: vertical-lr;
-    writing-mode: vertical-lr;
 }
 
 .logo22 {
@@ -467,6 +588,13 @@ select{
     position: absolute;
     top: 56.5rem;
     left: 30.5rem;
+    z-index: 9;
+}
+.yinwen {
+    width: 14.5rem;
+    position: absolute;
+    top: 60.5rem;
+    left: 15.5rem;
     z-index: 9;
 }
 .tt112 {
@@ -571,12 +699,12 @@ select{
 
 .s_wenzi3{
     position: absolute;
-    width: 13rem;
+    width: 17rem;
     font-size: 1.3rem;
     top: 13rem;
-    left: 22rem;
+    left: 17rem;
     overflow: hidden;
-    text-overflow:ellipsis;
+    text-overflow: ellipsis;
     white-space: nowrap;
 }
 
@@ -619,6 +747,14 @@ select{
     position: absolute;
     width: 100%;
     left: 0;
+    top: 28rem;
+    z-index: 2;
+}
+
+.lihe-guangquan{
+    position: absolute;
+    width: 100%;
+    left: 0;
     top: 20rem;
     z-index: 2;
 }
@@ -655,3 +791,136 @@ select{
     left: 0;
 }
 
+.back{
+    width: 3rem;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 999;
+}
+
+.animat{
+    animation:mymove 3s infinite;
+    -webkit-animation:mymove 3s infinite; /*Safari and Chrome*/
+    animation-direction:alternate;/*轮流反向播放动画。*/
+    animation-timing-function: ease-in-out; /*动画的速度曲线*/
+    /* Safari 和 Chrome */
+    -webkit-animation:mymove 3s infinite;
+    -webkit-animation-direction:alternate;/*轮流反向播放动画。*/
+    -webkit-animation-timing-function: ease-in-out; /*动画的速度曲线*/
+}
+
+.gray {
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+    filter: gray;
+}
+
+@keyframes mymove
+{
+    0%{
+        transform: scale(1);  /*开始为原始大小*/
+    }
+    25%{
+        transform: scale(1.1); /*放大1.1倍*/
+    }
+    50%{
+        transform: scale(1);
+    }
+    75%{
+        transform: scale(1.1);
+    }
+
+}
+
+@-webkit-keyframes mymove /*Safari and Chrome*/
+{
+    0%{
+        transform: scale(1);  /*开始为原始大小*/
+    }
+    25%{
+        transform: scale(1.1); /*放大1.1倍*/
+    }
+    50%{
+        transform: scale(1);
+    }
+    75%{
+        transform: scale(1.1);
+    }
+}
+.cake{animation:move 3s 0s infinite;-webkit-animation:move 3s 0s infinite;transform-origin:bottom;-webkit-transform-origin:bottom;}
+
+@keyframes move
+{
+    0%, 65%{
+        -webkit-transform:rotate(0deg);
+        transform:rotate(0deg);
+    }
+    70% {
+        -webkit-transform:rotate(6deg);
+        transform:rotate(6deg);
+    }
+    75% {
+        -webkit-transform:rotate(-6deg);
+        transform:rotate(-6deg);
+    }
+    80% {
+        -webkit-transform:rotate(6deg);
+        transform:rotate(6deg);
+    }
+    85% {
+        -webkit-transform:rotate(-6deg);
+        transform:rotate(-6deg);
+    }
+    90% {
+        -webkit-transform:rotate(6deg);
+        transform:rotate(6deg);
+    }
+    95% {
+        -webkit-transform:rotate(-6deg);
+        transform:rotate(-6deg);
+    }
+    100% {
+        -webkit-transform:rotate(0deg);
+        transform:rotate(0deg);
+    }
+}
+
+@-webkit-keyframes move
+{
+    0%, 65%{
+        -webkit-transform:rotate(0deg);
+        transform:rotate(0deg);
+    }
+    70% {
+        -webkit-transform:rotate(6deg);
+        transform:rotate(6deg);
+    }
+    75% {
+        -webkit-transform:rotate(-6deg);
+        transform:rotate(-6deg);
+    }
+    80% {
+        -webkit-transform:rotate(6deg);
+        transform:rotate(6deg);
+    }
+    85% {
+        -webkit-transform:rotate(-6deg);
+        transform:rotate(-6deg);
+    }
+    90% {
+        -webkit-transform:rotate(6deg);
+        transform:rotate(6deg);
+    }
+    95% {
+        -webkit-transform:rotate(-6deg);
+        transform:rotate(-6deg);
+    }
+    100% {
+        -webkit-transform:rotate(0deg);
+        transform:rotate(0deg);
+    }
+}
