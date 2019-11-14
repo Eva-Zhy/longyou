@@ -150,6 +150,15 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     right: 0.5rem;
 }
 
+.g_btn4{
+    width: 6rem;
+    position: absolute;
+    z-index: 99;
+    top: 4.3rem;
+    right: 0.1rem;
+    display: none;
+}
+
 .aite{
     width: auto;
     position: absolute;
@@ -453,7 +462,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     background-size: 100% 100%;
     position: relative;
     width: 85.8%;
-    left: 7.40%;
+    left: 7.30%;
     margin-bottom: 0.1rem;
     z-index: 5;
 }
@@ -639,7 +648,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 .goodsli2 {
-    width: 8.60rem;
+    width: 8.20rem;
     height: 5.45rem;
     position: relative;
     float: left;

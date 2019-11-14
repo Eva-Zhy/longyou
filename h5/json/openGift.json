@@ -1,11 +1,21 @@
 {
   "code":0,
   "data":{
+    "type": 3,
     "goods":{
       "id":0,
       "name": "S型躺椅",
       "des": "人生就像咸鱼",
       "src": "1/1.png"
+    },
+    "gift":{
+      "id":0,
+      "name":"300钻石"
+    },
+    "coupons":{
+      "id":0,
+      "name":"",
+      "code":"TXYX01HRNHME"
     }
   }
 }

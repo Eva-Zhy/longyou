@@ -24,54 +24,58 @@ jq(document).ready(function () {
 
     jq("#day_1").click(function () {
         $(".tishi1").html(" 第一天签到");
-        $(".tishi1").css("left","0.5rem");
+        $(".tishi1").css("left", "0.5rem");
         tishiani()
     });
     jq("#day_4").click(function () {
-        $(".tishi1").html(" 第三天签到");
-        $(".tishi1").css("left","21.2rem");
+        $(".tishi1").html(" 第四天签到");
+        $(".tishi1").css("left", "21.2rem");
         tishiani()
     });
 
     jq("#day_2").click(function () {
-        if (signIn_data[1].type == 1) {
-            $(".tishi1").html(" 累计签到必得装饰礼品");
-            $(".tishi1").css("left","6.5rem");
+        if (signIn_data[1].type == 0) {
+            $(".tishi1").html(" 累计二天签到必得装饰礼品");
+            $(".tishi1").css("left", "6.5rem");
             tishiani()
         } else {
-            if (signIn_data[1].state == 0){
+            if (signIn_data[1].state == 0) {
                 // $(".lihe-bg").css("backgroundImage", 'url("./img/bg3.jpg")');
-                // $(".qipan-v").css('display', 'none');
                 // $(".lihe-v").css('display', 'block');
                 // $("#lihe-v1-1").css('display', 'block');
+                $(".qipan-v").css('display', 'none');
                 $(".xuanzhe-v").css('display', 'block');
-                addGoods2()
+                addGoods2();
                 setTimeout(function () {
                     var swiper = new Swiper('.swiper-container');
-                },500)
+                }, 500)
             } else {
                 $(".tishi1").html(" 以领取");
-                $(".tishi1").css("left","6.2rem");
+                $(".tishi1").css("left", "6.2rem");
                 tishiani()
             }
         }
     });
 
     jq("#day_3").click(function () {
-        if (signIn_data[2].type == 1) {
-            $(".tishi1").html("累计签到必得游戏礼包");
-            $(".tishi1").css("left","13.5rem");
-
+        if (signIn_data[2].type == 0) {
+            $(".tishi1").html("累计三天签到必得游戏礼包");
+            $(".tishi1").css("left", "13.5rem");
             tishiani()
         } else {
-            if (signIn_data[2].state == 0){
+            if (signIn_data[2].state == 0) {
+                gift_data = signIn_data[2].gift
+                $(".title_web").html(gift_data.name);
                 getGameInfo();
 
+                saveInfo_type = 1
                 jq('.qipan-v').css('display', 'none');
                 jq('.userInfo').css('display', 'block');
+                $("#title_web").css('display', 'block');
+                $("#logo2211").css('display', 'none');
             } else {
                 $(".tishi1").html(" 以领取");
-                $(".tishi1").css("left","13.2rem");
+                $(".tishi1").css("left", "13.2rem");
                 tishiani()
             }
         }
@@ -79,18 +83,22 @@ jq(document).ready(function () {
 
     jq("#day_5").click(function () {
         if (signIn_data[4].type == 0) {
-            $(".tishi1").html("累计签到必得游戏礼包");
-            $(".tishi1").css("left","28.2rem");
+            $(".tishi1").html("累计五天签到必得游戏礼包");
+            $(".tishi1").css("left", "28.2rem");
             tishiani()
         } else {
-            if (signIn_data[4].state == 0){
+            if (signIn_data[4].state == 0) {
+                gift_data = signIn_data[4].gift
+                $(".title_web").html(gift_data.name);
                 getGameInfo();
-
+                saveInfo_type = 1
                 jq('.qipan-v').css('display', 'none');
                 jq('.userInfo').css('display', 'block');
+                $("#title_web").css('display', 'block');
+                $("#logo2211").css('display', 'none');
             } else {
                 $(".tishi1").html("以领取");
-                $(".tishi1").css("left","28.2rem");
+                $(".tishi1").css("left", "28.2rem");
                 tishiani()
             }
         }
@@ -100,52 +108,79 @@ jq(document).ready(function () {
         if (can) {
             can = false;
 
-            var i = 0;
-            var saiziAni = setInterval(function () {
-                i++
-                if (i < 7) {
-                    var ranNum_ani = randomNum(1, 6)
-                    jq("#saizi").attr('src', './img/dice_rolling_' + ranNum_ani + '.png')
-                } else {
-                    clearInterval(saiziAni);
-                    var ranNum = randomNum(1, 6);
-                    jq("#saizi").attr('src', './img/num' + ranNum + '.png')
-                    setTimeout(function () {
-                        moveQz(ranNum);
-                    }, 200);
+            jq.ajax({
+                type: "get", //提交方式
+                url: get_url + "useGameNum.php",//路径
+                data: {
+                    opendid: opendid
+                },//数据，这里使用的是Json格式进行传输
+                dataType: 'json',
+                success: function (res) {//返回数据根据结果进行相应的处理
+                    if (res.code == 0) {
+                        game_num = res.data.num
+                        jq(".game_num").html(game_num);
+                        if (res.data.num > 0) {
+                            var i = 0;
+                            var saiziAni = setInterval(function () {
+                                i++
+                                if (i < 7) {
+                                    var ranNum_ani = randomNum(1, 6)
+                                    jq("#saizi").attr('src', './img/dice_rolling_' + ranNum_ani + '.png')
+                                } else {
+                                    clearInterval(saiziAni);
+                                    var ranNum = randomNum(1, 6);
+                                    jq("#saizi").attr('src', './img/num' + ranNum + '.png')
+                                    setTimeout(function () {
+                                        moveQz(ranNum);
+                                    }, 200);
+                                }
+                            }, 100);
+                        } else {
+                            jq(document).dialog({
+                                type: 'notice',
+                                infoText: '游戏次数用完了',
+                                autoClose: 1500,
+                                position: 'center'  // center: 居中; bottom: 底部
+                            });
+                        }
+                    }
                 }
-            }, 100);
+            });
+
         }
     })
 });
 var signIn_day = 1;
 var signIn_data = [];
+
 function tishiani() {
     jq(".tishi1").stop()
-    jq(".tishi1").css("opacity",0);
-    jq(".tishi1").animate({opacity:1},1000,function () {
+    jq(".tishi1").css("opacity", 0);
+    jq(".tishi1").animate({opacity: 1}, 1000, function () {
         setTimeout(function () {
-            jq(".tishi1").animate({opacity:0},1000,function () {
+            jq(".tishi1").animate({opacity: 0}, 1000, function () {
             });
-        },1000)
+        }, 1000)
     });
 }
+
 function tishiani2() {
     jq(".tishi2").stop()
-    jq(".tishi2").css("opacity",0);
-    jq(".tishi2").animate({opacity:1},1000,function () {
+    jq(".tishi2").css("opacity", 0);
+    jq(".tishi2").animate({opacity: 1}, 1000, function () {
         setTimeout(function () {
-            jq(".tishi2").animate({opacity:0},1000,function () {
+            jq(".tishi2").animate({opacity: 0}, 1000, function () {
             });
-        },1000)
+        }, 1000)
     });
 }
+
 function signIn() {
     jq.ajax({
         type: "get", //提交方式
         url: get_url + "signIn.php",//路径
         data: {
-            opendid:''
+            opendid: opendid
         },//数据，这里使用的是Json格式进行传输
         dataType: 'json',
         success: function (res) {//返回数据根据结果进行相应的处理
@@ -222,25 +257,49 @@ function moveQz(num) {
 
             jq.ajax({
                 type: "get", //提交方式
-                url: get_url + "getGift.php",//路径
-                data: {},//数据，这里使用的是Json格式进行传输
+                url: get_url + "openGift.php",//路径
+                data: {
+                    opendid: opendid,
+                },//数据，这里使用的是Json格式进行传输
                 dataType: 'json',
                 success: function (res) {//返回数据根据结果进行相应的处理
-                    console.log("openGift", res);
                     if (res.code == 0) {
                         opendGift = res.data.goods;
 
                         // 0 普通道具 1稀有道具 2游戏道具 3民俗95优惠卷
                         if (res.data.type == 0) {
-                            $(".lihe-bg").css("backgroundImage", 'url("./img/bg3.jpg")');
-                            $(".qipan-v").css('display', 'none');
-                            $(".lihe-v").css('display', 'block');
-                            $("#lihe-v1-1").css('display', 'block');
+                            goods_data = res.data.goods
+                            opengiftnew(0)
                         } else if (res.data.type == 1) {
-                            $(".lihe-bg").css("backgroundImage", 'url("./img/bgg.jpg")');
+                            goods_data = res.data.goods
+                            opengiftnew(1)
+                        } else if (res.data.type == 2) {
+                            gift_data = res.data.gift
+                            $(".title_web").html(gift_data.name);
+                            // 打开盲盒
+                            getGameInfo();
+                            saveInfo_type = 1;
                             $(".qipan-v").css('display', 'none');
-                            $(".lihe-v").css('display', 'block');
-                            $("#lihe-v1-2").css('display', 'block');
+                            $(".userInfo").css('display', 'block');
+                            $("#title_web").css('display', 'block');
+                            $("#logo2211").css('display', 'none');
+
+                        } else if (res.data.type == 3) {
+                            coupons_data = res.data.coupons
+                            // 抽取优惠卷
+                            jq(".code-txt").html(coupons_data.code);
+                            $(".qipan-v").css('display', 'none');
+                            $(".yhj2-v").css('display', 'block');
+
+                            setTimeout(function () {
+                                html2canvas(document.querySelector("#kaixiang2"), {backgroundColor: "transparent",}).then(function (canvas) {
+//            document.querySelector(".share-img").appendChild(canvas);
+                                    var save_base2 = canvas.toDataURL('image/png');
+                                    $(".kaixiang2_img").css('display', 'block');
+                                    $(".kaixiang3").css('display', 'block');
+                                    $(".kaixiang2_img").attr('src', save_base2);
+                                });
+                            },300)
                         }
                     }
                 }
@@ -268,52 +327,70 @@ $(".lkzb").unbind("click").click(function () {
 });
 
 $("#btn2").unbind("click").click(function () {
-    openGift(0)
+    openGift()
 
 });
 
 $("#btn3").unbind("click").click(function () {
-    openGift(1)
+    openGift()
 });
-var goods_data={};
-function openGift(type) {
-    jq.ajax({
-        type: "get", //提交方式
-        url: get_url + "openGift.php",//路径
-        data: {
-            opendid:'',
-            type:type
-        },//数据，这里使用的是Json格式进行传输
-        dataType: 'json',
-        success: function (res) {//返回数据根据结果进行相应的处理
-            console.log("openGift", res);
-            if (res.code == 0) {
-                goods_data = res.data.goods;
-                jq(".lihe-img").addClass("cake")
-                setTimeout(function () {
-                    jq(".lihe-img").removeClass("cake");
-                    jq(".lihe-v1").css('display', 'none');
-                    $("#daoju-img").attr('src','./baifang/png/tu/'+ res.data.goods.src);
-                    console.log("openGift", res.data.goods.src);
-                    console.log("openGift", './baifang/png/tu/'+ res.data.goods.src);
-                    jq(".title2").html( res.data.goods.name);
-                    jq(".title3").html( res.data.goods.name);
-                    jq(".title3").html( res.data.goods.name);
-                    var des_arr = res.data.goods.des.split("，");
-                    if (des_arr.length == 2) {
-                        jq(".title4").html( des_arr[0]);
-                        jq(".title5").html( des_arr[1]);
-                    } else {
-                        jq(".title5").html( des_arr[0]);
-                    }
+function opengiftnew(type) {
+    if (type == 0){
+        $(".lihe-bg").css("backgroundImage", 'url("./img/bg3.jpg")');
+    }else {
+        $(".lihe-bg").css("backgroundImage", 'url("./img/bgg.jpg")');
+    }
+    $(".qipan-v").css('display', 'none');
+    $(".lihe-v").css('display', 'block');
 
-                    jq(".lihe-v2").css('display', 'block');
-                    jq(".lihe-v-btn").css('display', 'block');
-                },3000);
+    jq(".btn6").css('display', 'none');
+    jq(".share_img2").css('display', 'none');
+    jq(".erweima2").css('display', 'none');
 
-            }
+    $(".lihe-v-btn").css('display', 'block');
+    $(".lkzb").css('display', 'block');
+    $(".xyyx").css('display', 'block');
+
+    // $("#lihe-v1-2").css('display', 'block');
+    jq(".lihe-img").removeClass("cake");
+    jq(".lihe-v1").css('display', 'none');
+
+    $("#daoju-img").attr('src', './baifang/png/tu/' + goods_data.src);
+    console.log("openGift", goods_data.src);
+    console.log("openGift", './baifang/png/tu/' + goods_data.src);
+    jq(".title2").html(goods_data.name);
+    jq(".title3").html(goods_data.name);
+    var des_arr = goods_data.des.split("，");
+    if (des_arr.length == 2) {
+        jq(".title4").html(des_arr[0]);
+        jq(".title5").html(des_arr[1]);
+    } else {
+        jq(".title5").html(des_arr[0]);
+    }
+    jq(".lihe-v2").css('display', 'block');
+    jq(".lihe-v-btn").css('display', 'block');
+}
+function openGift() {
+    jq(".lihe-img").addClass("cake")
+    setTimeout(function () {
+        jq(".lihe-img").removeClass("cake");
+        jq(".lihe-v1").css('display', 'none');
+        $("#daoju-img").attr('src', './baifang/png/tu/' + goods_data.src);
+        console.log("openGift", goods_data.src);
+        console.log("openGift", './baifang/png/tu/' + goods_data.src);
+        jq(".title2").html(goods_data.name);
+        jq(".title3").html(goods_data.name);
+        var des_arr = goods_data.des.split("，");
+        if (des_arr.length == 2) {
+            jq(".title4").html(des_arr[0]);
+            jq(".title5").html(des_arr[1]);
+        } else {
+            jq(".title5").html(des_arr[0]);
         }
-    });
+
+        jq(".lihe-v2").css('display', 'block');
+        jq(".lihe-v-btn").css('display', 'block');
+    }, 3000);
 }
 
 $(".xyyx").unbind("click").click(function () {
@@ -324,7 +401,7 @@ $(".xyyx").unbind("click").click(function () {
     $(".btn6").css('display', 'block');
 
     setTimeout(function () {
-        html2canvas(document.querySelector("#lihe-v"),{ backgroundColor: "transparent",}).then(function (canvas) {
+        html2canvas(document.querySelector("#lihe-v"), {backgroundColor: "transparent",}).then(function (canvas) {
 //            document.querySelector(".share-img").appendChild(canvas);
             var save_base2 = canvas.toDataURL('image/png');
             console.log(save_base2)

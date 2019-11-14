@@ -3,11 +3,20 @@ var allimgs = 4;
 var save_base = '';
 var hetu_base = '';
 var address = "";
-var name = "我是xxxx";
 var taici_num = 0;
-window.get_url = "https://jwnice.com/jyserver/longyou/";
+
 var game_width = 644;
 var game_height = 826;
+
+var bgaudio = document.getElementById('bgMusic');
+//document.getElementById('bgaudio').play();
+document.addEventListener("WeixinJSBridgeReady",
+    function () {
+        document.getElementById('bgMusic').play();
+    },
+false);
+
+
 
 addGoods();
 allimgs = jq('.loading-img').length;
@@ -31,7 +40,6 @@ setTimeout(function () {
 var times_num = 0;
 var timeAni = setInterval(function () {
     times_num++
-    console.log(times_num);
     jq("#bfb").text(times_num + '%');
     jq(".bar-v").css("width", times_num + '%');
     if (times_num == 99) {
@@ -52,30 +60,84 @@ var timeAni = setInterval(function () {
                 })
                 jq('#start_btn').animate({opacity: 1}, 1000, function () {
                     jq('#start_btn').click(function () {
-                        jq(".loading-v").css("display", "none");
-                        jq(".select-v").css("display", "block");
 
+                        jq.ajax({
+                            type: "get", //提交方式
+                            url:get_url+ "getSaveGoods.php",//路径
+                            data: {
+                                opendid: opendid
+                            },//数据，这里使用的是Json格式进行传输
+                            dataType: 'json',
+                            success: function (res) {//返回数据根据结果进行相应的处理
+                                console.log(res);
+                                if (res.data.room_bg == 0) {
+                                    jq(".loading-v").css("display", "none");
+                                    jq(".select-v").css("display", "block");
+                                }else if (res.data.room_bg == 1) {
+                                    address = '都市高层';
+                                    room_bg = 1;
+                                    jq(".loading-v").css("display", "none");
+                                    jq(".bianfang-v").css("display", "block");
+                                    startGame()
+                                    getMap()
+                                    getSaveGoods()
+                                }else if (res.data.room_bg == 2) {
+                                    address = '日式庭院';
+                                    room_bg = 2;
+                                    jq(".loading-v").css("display", "none");
+                                    jq(".bianfang-v").css("display", "block");
+                                    startGame()
+                                    getMap()
+                                    getSaveGoods()
+                                }else if (res.data.room_bg == 3) {
+                                    address = '滨海别墅';
+                                    room_bg = 3;
+                                    jq(".loading-v").css("display", "none");
+                                    jq(".bianfang-v").css("display", "block");
+                                    startGame()
+                                    getMap()
+                                    getSaveGoods()
+                                }else if (res.data.room_bg == 4) {
+                                    address = '欧式花园';
+                                    room_bg = 4;
+                                    jq(".loading-v").css("display", "none");
+                                    jq(".bianfang-v").css("display", "block");
+                                    startGame()
+                                    getMap()
+                                    getSaveGoods()
+                                }
+                            }
+                        });
                         // jq('.select-v').css('display','none');
                         // jq('.bianfang-v').css('display','block');
                         // startGame()
                         // 选择地址
                         // addSelectClick();
-
                     });
                 })
             })
 
+            jq.ajax({
+                type: "get", //提交方式
+                url:get_url+ "login.php",//路径
+                data: {
+                    opendid: opendid,
+                    name: name,
+                    headimg: headimg
+                },//数据，这里使用的是Json格式进行传输
+                dataType: 'json',
+                success: function (res) {//返回数据根据结果进行相应的处理
+                    console.log(res);
+                }
+            });
         }, 1000);
     }
-
 },80)
 
 jq('.loading-img').imagesLoaded().always(function () {
 
-
 }).progress(function (instance, image) {
     imgs++;
-
 });
 
 
@@ -287,10 +349,33 @@ function getMap() {
     console.log(dian_arr);
 }
 
+function getGameNum() {
+    jq.ajax({
+        type: "get", //提交方式
+        url:get_url+ "getGameNum.php",//路径
+        data: {
+            opendid: opendid
+        },//数据，这里使用的是Json格式进行传输
+        dataType: 'json',
+        success: function (res) {//返回数据根据结果进行相应的处理
+            console.log(res);
+            if (res.code == 0) {
+                game_num = res.data.num
+                jq(".game_num").html(game_num);
+            }
+        }
+    });
+}
+
 function keepTwoDecimal(num) {
     var result = parseFloat(num);
     if (isNaN(result)) {
-        alert('传递参数错误，请检查！');
+        jq(document).dialog({
+            type : 'notice',
+            infoText: '传递参数错误，请检查！',
+            autoClose: 1500,
+            position: 'center'  // center: 居中; bottom: 底部
+        });
         return false;
     }
     result = Math.round(num * 100) / 100;
@@ -301,7 +386,12 @@ function keepTwoDecimal(num) {
 function keepTwoDecimalFull(num) {
     var result = parseFloat(num);
     if (isNaN(result)) {
-        alert('传递参数错误，请检查！');
+        jq(document).dialog({
+            type : 'notice',
+            infoText: '传递参数错误，请检查！',
+            autoClose: 1500,
+            position: 'center'  // center: 居中; bottom: 底部
+        });
         return false;
     }
     result = Math.round(num * 100) / 100;
@@ -323,25 +413,28 @@ function addSelectClick() {
         console.log(id);
         if (id == 1) {
             address = '都市高层';
-            console.log("add");
+            room_bg = 1;
             jq(".select-item1").addClass("animat");
             jq(".select-item2").removeClass("animat");
             jq(".select-item3").removeClass("animat");
             jq(".select-item4").removeClass("animat");
         } else if (id == 2) {
             address = '日式庭院';
+            room_bg = 2;
             jq(".select-item1").removeClass("animat");
             jq(".select-item2").addClass("animat");
             jq(".select-item3").removeClass("animat");
             jq(".select-item4").removeClass("animat");
         } else if (id == 3) {
             address = '滨海别墅';
+            room_bg = 3;
             jq(".select-item1").removeClass("animat");
             jq(".select-item2").removeClass("animat");
             jq(".select-item3").addClass("animat");
             jq(".select-item4").removeClass("animat");
         } else if (id == 4) {
             address = '欧式花园';
+            room_bg = 4;
             jq(".select-item1").removeClass("animat");
             jq(".select-item2").removeClass("animat");
             jq(".select-item3").removeClass("animat");
@@ -353,50 +446,119 @@ function addSelectClick() {
             jq('.bianfang-v').css('display', 'block');
             startGame()
             getMap()
+            getSaveGoods()
+
             // getMap()
         } else {
-            alert("请选择小屋地址")
+            jq(document).dialog({
+                type : 'notice',
+                infoText: '请选择小屋地址',
+                autoClose: 1500,
+                position: 'center'  // center: 居中; bottom: 底部
+            });
         }
     });
     // jq('.btn5').click(function () {
     //
     // });
     jq('.btn6').click(function () {
-        alert("长按图片即可保存")
+        jq(document).dialog({
+            type : 'notice',
+            infoText: '长按图片即可保存',
+            autoClose: 1500,
+            position: 'center'  // center: 居中; bottom: 底部
+        });
     });
     jq('.g_qzz').click(function () {
         jq.ajax({
             type: "get", //提交方式
-            url: "https://jwnice.com/jyserver/longyou/share.php",//路径
+            url:get_url+ "share.php",//路径
             data: {
-                opendid: ''
+                opendid: opendid
             },//数据，这里使用的是Json格式进行传输
             dataType: 'json',
             success: function (res) {//返回数据根据结果进行相应的处理
                 console.log(res);
                 if (res.code == 0) {
-                    $(".tishi2").html("分享成功");
-                    tishiani2()
+                    jq(document).dialog({
+                        type : 'notice',
+                        infoText: '分享成功',
+                        autoClose: 1500,
+                        position: 'center'  // center: 居中; bottom: 底部
+                    });
                 } else if (res.code == 1) {
-                    $(".tishi2").html("分享超过上限了");
-                    tishiani2()
+                    jq(document).dialog({
+                        type : 'notice',
+                        infoText: '分享超上限',
+                        autoClose: 1500,
+                        position: 'center'  // center: 居中; bottom: 底部
+                    });
                 }
             }
         });
 
     });
+
     jq('.btn4').click(function () {
-        alert("带它成功")
+        jq.ajax({
+            type: "get", //提交方式
+            url: get_url + "checkGoods.php",//路径
+            data: {
+                opendid: opendid,
+                goods_id: sle_id
+            },//数据，这里使用的是Json格式进行传输
+            dataType: 'json',
+            success: function (res) {//返回数据根据结果进行相应的处理
+                console.log(res);
+                if (res.code == 0) {
+                    jq.ajax({
+                        type: "get", //提交方式
+                        url: get_url + "selectGoods.php",//路径
+                        data: {
+                            opendid: opendid,
+                            goods_id: sle_id
+                        },//数据，这里使用的是Json格式进行传输
+                        dataType: 'json',
+                        success: function (res) {//返回数据根据结果进行相应的处理
+                            console.log(res);
+                            if (res.code == 0) {
+                                getGameInfo();
+                                saveInfo_type = 0;
+                                $(".xuanzhe-v").css('display', 'none');
+                                $(".userInfo").css('display', 'block');
+                                $("#logo2211").css('display', 'block');
+                                $("#title_web").css('display', 'none');
+                            }
+                        }
+                    });
+                }else if (res.code == 1) {
+                    jq(document).dialog({
+                        type : 'notice',
+                        infoText: '已经带过了',
+                        autoClose: 1500,
+                        position: 'center'  // center: 居中; bottom: 底部
+                    });
+                }
+            }
+        });
+
     });
+
     jq('.g_btn2 ').click(function () {
         // 获取游戏信息
-        getGameInfo();
-
-        jq('.bianfang-v').css('display', 'none');
-        jq('.userInfo').css('display', 'block');
+        jq(document).dialog({
+            type : 'notice',
+            infoText: '进入游戏',
+            autoClose: 1500,
+            position: 'center'  // center: 居中; bottom: 底部
+        });
+        // getGameInfo();
+        //
+        // jq('.bianfang-v').css('display', 'none');
+        // jq('.userInfo').css('display', 'block');
     });
     jq('.cancl ').click(function () {
-        jq('.bianfang-v').css('display', 'block');
+        jq('.qipan-v').css('display', 'block');
         jq('.userInfo').css('display', 'none');
     });
     jq('.suer ').click(function () {
@@ -406,20 +568,41 @@ function addSelectClick() {
         var role = jq('#role-s option:selected').val();
 
         if (channel == "") {
-            alert("请选择渠道");
+            jq(document).dialog({
+                type : 'notice',
+                infoText: '请选择渠道',
+                autoClose: 1500,
+                position: 'center'  // center: 居中; bottom: 底部
+            });
         } else if (system == "") {
-            alert("请选择系统");
+            jq(document).dialog({
+                type : 'notice',
+                infoText: '请选择系统',
+                autoClose: 1500,
+                position: 'center'  // center: 居中; bottom: 底部
+            });
         } else if (area == "") {
-            alert("请选择大区");
+            jq(document).dialog({
+                type : 'notice',
+                infoText: '请选择大区',
+                autoClose: 1500,
+                position: 'center'  // center: 居中; bottom: 底部
+            });
         } else if (role == "") {
-            alert("请选择角色");
+            jq(document).dialog({
+                type : 'notice',
+                infoText: '请选择角色',
+                autoClose: 1500,
+                position: 'center'  // center: 居中; bottom: 底部
+            });
         } else {
             jq.ajax({
                 type: "get", //提交方式
-                url: "https://jwnice.com/jyserver/longyou/share.php",//路径
+                url: get_url + "saveInfo.php",//路径
                 data: {
-                    opendid: '',
-                    type: 0,
+                    opendid: opendid,
+                    type: saveInfo_type,
+                    gift_id:gift_data.id,
                     channel: channel,
                     system: system,
                     area: area,
@@ -429,7 +612,16 @@ function addSelectClick() {
                 success: function (res) {//返回数据根据结果进行相应的处理
                     console.log(res);
                     if (res.code == 0) {
-                        alert("提交成功")
+                        jq(document).dialog({
+                            type : 'notice',
+                            infoText: '提交成功',
+                            autoClose: 1500,
+                            position: 'center'  // center: 居中; bottom: 底部
+                        });
+                        setTimeout(function () {
+                            jq('.qipan-v').css('display', 'block');
+                            jq('.userInfo').css('display', 'none');
+                        },500)
                     }
                 }
             });
@@ -445,18 +637,43 @@ function addSelectClick() {
         jq('.bianfang-v').css('display', 'block');
         jq('.fangcz-v').css('display', 'none');
         jq('.tishi-v').css('display', 'none');
+        addGoods();
     });
     jq('#back3').click(function () {
         jq('.bianfang-v').css('display', 'block');
         jq('.qipan-v').css('display', 'none');
+        addGoods();
+    });
+    jq('#yhj_btn').click(function () {
+        jq('.yhj-v').css('display', 'block');
+        jq('.qipan-v').css('display', 'none');
+        getCoupons();
+    });
+    jq('.lihe-x2').click(function () {
+        jq('.yhj-v').css('display', 'none');
+        jq('.qipan-v').css('display', 'block');
+    });
+    jq('.lihe-x3').click(function () {
+        jq('.yhj2-v').css('display', 'none');
+        jq('.kaixiang2_img').css('display', 'none');
+        jq('.kaixiang3').css('display', 'none');
+        jq('.qipan-v').css('display', 'block');
     });
     jq('.add').click(function () {
-        alert("右上角点击分享")
+        jq(document).dialog({
+            type : 'notice',
+            infoText: '右上角点击分享',
+            autoClose: 1500,
+            position: 'center'  // center: 居中; bottom: 底部
+        });
     });
     jq('.g_btn3').click(function () {
         jq('.bianfang-v').css('display', 'none');
+        jq('.qz_tou').attr('src',headimg);
         jq('.qipan-v').css('display', 'block');
+        getGameNum();
     });
+
     jq('.g_btn1').click(function () {
         console.log(html2canvas)
         jq('.shengc').css('display', 'block');
@@ -478,7 +695,7 @@ function addSelectClick() {
                 jq("#up").click(function () {
                     jq('#xuanyan' + taici_num).css('display', 'none');
                     if (taici_num == 0) {
-                        taici_num = 5
+                        taici_num = 10
                     } else {
                         taici_num--;
                     }
@@ -486,7 +703,7 @@ function addSelectClick() {
                 });
                 jq("#down").click(function () {
                     jq('#xuanyan' + taici_num).css('display', 'none');
-                    if (taici_num == 5) {
+                    if (taici_num == 10) {
                         taici_num = 0
                     } else {
                         taici_num++;
@@ -509,7 +726,12 @@ function addSelectClick() {
                             })
                         }, 500)
                     } else {
-                        alert("请选择你的小屋宣言")
+                        jq(document).dialog({
+                            type : 'notice',
+                            infoText: '请选择你的小屋宣言',
+                            autoClose: 1500,
+                            position: 'center'  // center: 居中; bottom: 底部
+                        });
                     }
                 });
             });
@@ -524,12 +746,40 @@ function addSelectClick() {
 
 }
 
+function getCoupons() {
+    jq.ajax({
+        type: "get", //提交方式
+        url: get_url+"/getCoupons.php",//路径
+        data: {},//数据，这里使用的是Json格式进行传输
+        dataType: 'json',
+        success: function (res) {//返回数据根据结果进行相应的处理
+            console.log(res);
+            if (res.code == 0) {
+                jq(".myyhj-v").html("")
+                if (res.data.coupons.length != 0) {
+                  var yhj_html ="";
+                  for (var i=0;i<res.data.coupons.length;i++) {
+                      yhj_html+=  '<div class="myyhj-v-item">'+res.data.coupons[i].code+'</div>'
+                  }
+                  jq(".myyhj-v").html(yhj_html)
+                } else {
+                   var yhj_html =  '<div class="myyhj-v-item">暂无优惠券</div>'
+                  jq(".myyhj-v").html(yhj_html)
+                }
+                if (myScrollwrapper == null){
+                    myScrollwrapper = new IScroll('#wrapper_vvv');
+                }
+            }
+        }
+    });
+}
+
 function getGameInfo() {
     jq.ajax({
         type: "get", //提交方式
         url: "https://jwnice.com/jyserver/longyou/gameinfo.php",//路径
         data: {
-            opendid: ''
+            opendid: opendid
         },//数据，这里使用的是Json格式进行传输
         dataType: 'json',
         success: function (res) {//返回数据根据结果进行相应的处理

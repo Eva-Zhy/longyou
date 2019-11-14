@@ -9,6 +9,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
     <link rel="stylesheet" type="text/css" href="css/main.css?v=2223"/>
     <link rel="stylesheet" type="text/css" href="css/qipan.css?v=2223"/>
+    <link rel="stylesheet" type="text/css" href="css/dialog.css?v=2223"/>
     <link rel="stylesheet" type="text/css" href="css/swiper.min.css"/>
     <link rel="stylesheet" type="text/css" href="baifang/css/showbag.css?v=2223"/>
     <title></title>
@@ -18,6 +19,8 @@
     <script type="text/javascript" src="js/layout.js"></script>
     <script type="text/javascript" src="js/swiper.min.js"></script>
     <script type="text/javascript" src="js/imagesloaded.pkgd.js"></script>
+    <script src="./baifang/js/iscroll.min.js"></script>
+
     <!--<script src="https://www.remmli.com/h5/js/vconsole.min.js"></script>-->
     <!--<script>-->
     <!--    var vConsole = new VConsole();-->
@@ -25,24 +28,29 @@
     <!--</script>-->
     <script>
         var jq = jQuery.noConflict();
+        window.get_url = "https://jwnice.com/jyserver/longyou/";
+        window.opendid = "";
+        window.headimg = "./img/qz.png";
+        window.name = "我是xxxx";
+        var game_num = 0;
+        var room_bg = 0;
+        var goods_data = {};
+        var gift_data = {};
+        var coupons_data = {};
+        var sle_id = 0;
+        var saveInfo_type = 0;
+        var music_status=0;
+        var game_save_status = 0;
+        var myScrollwrapper = null;
 
-        function getSms() {
-            jq.ajax({
-                type: "get", //提交方式
-                url: "https://jwnice.com/jyserver/longyou/data.php",//路径
-                data: {},//数据，这里使用的是Json格式进行传输
-                dataType: 'json',
-                success: function (res) {//返回数据根据结果进行相应的处理
-                    console.log(res);
-                }
-            });
-        }
-
-        getSms()
     </script>
 </head>
 <body>
+<div class="music" data-id="1">
+    <img src="./img/musicOn.png" alt="" class="img100">
+</div>
 
+<audio src="./img/bg.mp3" loop preload id="bgMusic"></audio>
 <div class="loadingimgs">
     <img src="./img/num1.png" class="img100 loading-img">
     <img src="./img/num2.png" class="img100 loading-img">
@@ -64,6 +72,7 @@
     <img src="./img/z1_1.png" style="opacity: 0;" id="z1_1" class="t1 loading-img"/>
     <img src="./img/z2.png" style="opacity: 0;" id="z2" class="t1 loading-img"/>
     <img src="./img/z2_1.png" style="opacity: 0;" id="z2_1" class="t1 loading-img"/>
+    <img src="./img/logo.png" style="opacity: 1;" class="logot1 loading-img"/>
     <div class="loading-bar">
         <div class="bar-v"></div>
     </div>
@@ -78,7 +87,7 @@
     <img src="./img/ditu2.png" data-id="2" class="select-item select-item2 loading-img"/>
     <img src="./img/ditu3.png" data-id="3" class="select-item select-item3 loading-img"/>
     <img src="./img/ditu4.png" data-id="4" class="select-item select-item4 loading-img"/>
-<!--    <img src="./img/btn5.png" class="btn5"/>-->
+    <!--    <img src="./img/btn5.png" class="btn5"/>-->
 </div>
 
 <div class="bianfang-v" style="display: none;">
@@ -87,20 +96,24 @@
     <div class="game_bg"></div>
     <div class="things2"></div>
     <div id="mythings" class="things">
-        <div id="dian1" style="position: absolute; width: 3px;height: 3px;background-color: #000;z-index: 999;">
+        <div id="dian1"
+             style="display:none;position: absolute; width: 3px;height: 3px;background-color: #000;z-index: 999;">
         </div>
     </div>
+
     <img class="g_btn1 loading-img" src="./img/g_btn1.png">
     <img class="g_btn2 loading-img" src="./img/g_btn2.png">
     <img class="g_btn3 loading-img" src="./img/g_btn3.png">
+    <img class="g_btn4 loading-img" src="./img/save_btn.png">
+
     <div class="aite">
-        @吴雨思的家
+
     </div>
     <div class="aite2">
-        @吴雨思的家
+
     </div>
     <div class="aite3">
-        @吴雨思的家
+
     </div>
     <div class="choose" id="choose">
         <div style="display: none;" class="choose-take" onclick="showbag.take();"></div>
@@ -120,7 +133,7 @@
             </ul>
         </div>
         <img class="jiantou animat loading-img" src="./img/jiantou22.png">
-        <img class="jiantou2 loading-img"  src="./img/upjiao.png">
+        <img class="jiantou2 loading-img" src="./img/upjiao.png">
     </div>
     <div style="display: none;" class="result hide"><img class="image"/>
         <div class="bot">
@@ -139,7 +152,8 @@
     <div id="linkQrcode" class="hide"></div>
 </div>
 <div class="qipan-v" style="display: none;">
-    <img src="./img/fanhui.png" class="back" style="width: 5rem;" id="back3">
+    <img src="./img/fanhui.png" class="back" style="width: 5rem; top: 3rem;" id="back3">
+    <img src="./img/yhj_btn.png" class="yhj_btn" style="width: 9rem; top: 3rem;" id="yhj_btn">
     <div class="game-yxgz" style="display: none">
         <img src="./img/gz.png" class="yxgz_img loading-img">
         <img src="./img/chax.png" id="yxgz_x">
@@ -160,7 +174,7 @@
                     <img class="qiandao-icon2" src="./img/lw22.png">
                 </div>
             </div>
-            <div  id="day_2"  class="qiandao-item2">
+            <div id="day_2" class="qiandao-item2">
                 <div id="day_2_0" style="display: none;">
                     <img class="qiandao-icon" src="./img/gou2.png">
                     <span class="qiandao-title">第二天</span>
@@ -205,7 +219,7 @@
         </div>
         <div class="qipan">
             <div id="qz" class="qz">
-                <img class="qz_tou" src="./img/qz.png">
+                <img class="qz_tou" src="">
             </div>
         </div>
         <!--    <div id="saizi">-->
@@ -214,7 +228,7 @@
         <img class="yxgz" src="./img/yxgz.png">
         <img class="g_qzz" src="./img/g_qzz.png">
 
-        <img src="./img/chuan.png" id="chuan">
+        <!--        <img src="./img/chuan.png" id="chuan">-->
         <div class="game_num">1</div>
         <div class="game_share">
             <img src="./img/add.png" id="add">
@@ -225,7 +239,7 @@
         </div>
     </div>
 </div>
-<div class="lihe-v"  style="display: none;">
+<div class="lihe-v" style="display: none;">
     <div class="lihe-bg">
     </div>
     <div class="lihe-v1" id="lihe-v1-1" style="display: none;">
@@ -268,24 +282,58 @@
     <img src='./img/btn6.png' class="btn6 loading-img" style="display: none;">
 </div>
 
+<div class="yhj-v" style="display: none;">
+    <img src='./img/chax.png' class="lihe-x2 loading-img" style="display: block;">
+    <div class="kaixiang">
+        <img class="yhj-title" src="./img/lqutit.png">
+        <div id="wrapper_vvv">
+            <div class="myyhj-v" id="myyhj-v">
+                <div class="myyhj-v-item">TXYX01HRNHME</div>
+                <div class="myyhj-v-item">TXYX01HRNHME</div>
+                <div class="myyhj-v-item">TXYX01HRNHME</div>
+                <div class="myyhj-v-item">TXYX01HRNHME</div>
+                <div class="myyhj-v-item">TXYX01HRNHME</div>
+                <div class="myyhj-v-item">TXYX01HRNHME</div>
+                <div class="myyhj-v-item">TXYX01HRNHME</div>
+                <div class="myyhj-v-item">TXYX01HRNHME</div>
+                <div class="myyhj-v-item">TXYX01HRNHME</div>
+                <div class="myyhj-v-item">TXYX01HRNHME</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="yhj2-v" style="display: none;">
+    <img src='./img/chax.png' class="lihe-x3 loading-img" style="display: block;">
+
+    <div class="kaixiang3">
+        <img style="display: none;" class="kaixiang2_img img100" src="">
+    </div>
+    <div id="kaixiang2" class="kaixiang2">
+        <div class="code-txt">TXYX01HRNHME</div>
+    </div>
+    <img class="save_btn"  src="./img/save_img.png">
+</div>
 
 <div class="fangcz-v" style="display: none;">
     <img src="./img/back.png" class="back" id="back2">
     <div class="fangcz-bg">
     </div>
     <img src="" id="share_img" class="fancz-shu" style="display: none; z-index: 999;">
-    <div class="tishi-v" style="display: none;">
-        长按图片即可保存
-    </div>
+    <img class="tishi-v" src="./img/btn6.png" style="display: none;">
+
+
     <div class="fancz-shu" id="fancz-shu">
-<!--        <div id="address" class="s_wenzi1">地址：千鹤町</div>-->
+        <!--        <div id="address" class="s_wenzi1">地址：千鹤町</div>-->
         <div id="huxing" class="s_wenzi2"></div>
         <div id="name" class="s_wenzi3"></div>
         <div class="shengc" style="display: block;
     position: absolute;
     top: -8rem;
     left: -2rem;">
-            <img id="up"  src="img/up.png" class="up_fc animat">
+            <img id="up" src="img/up.png" class="up_fc animat">
             <img id="down" src="img/down.png" class="down_fc animat">
             <div class="xuanyan">
             </div>
@@ -310,6 +358,21 @@
         <div class="xuanyan2" id="xuanyan5" data-id="5" style="line-height: 3rem;display: none;">
             <img src="./img/xuanyu5.png" class="img100">
         </div>
+        <div class="xuanyan2" id="xuanyan6" data-id="6" style="line-height: 3rem;display: none;">
+            <img src="./img/xuanyu6.png" class="img100">
+        </div>
+        <div class="xuanyan2" id="xuanyan7" data-id="7" style="line-height: 3rem;display: none;">
+            <img src="./img/xuanyu7.png" class="img100">
+        </div>
+        <div class="xuanyan2" id="xuanyan8" data-id="8" style="line-height: 3rem;display: none;">
+            <img src="./img/xuanyu8.png" class="img100">
+        </div>
+        <div class="xuanyan2" id="xuanyan9" data-id="9" style="line-height: 3rem;display: none;">
+            <img src="./img/xuanyu9.png" class="img100">
+        </div>
+        <div class="xuanyan2" id="xuanyan10" data-id="10" style="line-height: 3rem;display: none;">
+            <img src="./img/xuanyu10.png" class="img100">
+        </div>
 
         <div class="yinzhang" style="display: none;
     position: absolute;
@@ -320,9 +383,9 @@
             <img src="./img/yinzhang.png" class="yinzhang_img">
             <div class="s_wenzi4">X月X日龙族家园即将开启</div>
             <div class="s_wenzi5">来龙族开区幻想生活</div>
-<!--            <div class="s_wenzi6">X month X dragon family home is about to open<br/>-->
-<!--                Come to the Dragon Family to open a fantasy life-->
-<!--            </div>-->
+            <!--            <div class="s_wenzi6">X month X dragon family home is about to open<br/>-->
+            <!--                Come to the Dragon Family to open a fantasy life-->
+            <!--            </div>-->
             <img src="./img/erweiam.jpg" class="erweiam">
             <img src="./img/yinwen.png" class="yinwen">
         </div>
@@ -343,32 +406,32 @@
             <div class="swiper-wrapper" style="width: 100%;
     height: 100%;">
                 <div class="swiper-slide">
-                    <div class="xuanzhe-item xuanzhe-item-sle">
-                        <img src="./baifang/png/tu/1/17.png">
+                    <div data-id="1" class="xuanzhe-item xuanzhe-item-sle">
+                        <img src="./img/dairu/1.png">
                     </div>
-                    <div class="xuanzhe-item">
-                        <img src="./baifang/png/tu/2/29.png">
+                    <div data-id="2" class="xuanzhe-item">
+                        <img src="./img/dairu/2.png">
                     </div>
-                    <div class="xuanzhe-item">
-                        <img src="./baifang/png/tu/2/45.png">
+                    <div data-id="3" class="xuanzhe-item">
+                        <img src="./img/dairu/3.png">
                     </div>
-                    <div class="xuanzhe-item">
-                        <img src="./baifang/png/tu/3/12.png">
+                    <div data-id="4" class="xuanzhe-item">
+                        <img src="./img/dairu/4.png">
                     </div>
-                    <div class="xuanzhe-item">
-                        <img src="./baifang/png/tu/3/26.png">
+                    <div data-id="5" class="xuanzhe-item">
+                        <img src="./img/dairu/5.png">
                     </div>
-                    <div class="xuanzhe-item">
-                        <img src="./baifang/png/tu/3/25.png">
+                    <div data-id="6" class="xuanzhe-item">
+                        <img src="./img/dairu/6.png">
                     </div>
-                    <div class="xuanzhe-item">
-                        <img src="./baifang/png/tu/4/43.png">
+                    <div data-id="7" class="xuanzhe-item">
+                        <img src="./img/dairu/7.png">
                     </div>
-                    <div class="xuanzhe-item">
-                        <img src="./baifang/png/tu/4/53.png">
+                    <div data-id="8" class="xuanzhe-item">
+                        <img src="./img/dairu/8.png">
                     </div>
-                    <div class="xuanzhe-item">
-                        <img src="./baifang/png/tu/4/69.png">
+                    <div data-id="9" class="xuanzhe-item">
+                        <img src="./img/dairu/9.png">
                     </div>
                 </div>
             </div>
@@ -381,9 +444,11 @@
 <div class="userInfo" style="display: none;">
     <div class="userInfo-bg">
     </div>
-<!--    <img src="./img/logo.png" class="logo2211">-->
-    <img src="./img/xuyao.png" class="xuyao">
-    <div class="title_web">获取300钻石</div>
+    <img id="logo2211" style="display: none;" src="./img/logo.png" class="logo2211">
+    <div id="title_web" style="display: none;">
+        <img src="./img/xuyao.png" class="xuyao">
+        <div class="title_web"></div>
+    </div>
     <img src="./img/dt1.png" class="dt1">
     <img src="./img/dt2.png" class="dt2">
     <div class="select-input1">
@@ -392,7 +457,7 @@
         </select>
     </div>
     <div class="select-input2">
-        <select id="system-s"  class="my-select">
+        <select id="system-s" class="my-select">
 
         </select>
     </div>
@@ -416,9 +481,25 @@
 </div>
 </body>
 <script src="./js/zepto.js"></script>
+<script src="./js/dialog.js"></script>
 <script src="./qipan/config.js"></script>
 <script src="./baifang/js/showbag.js"></script>
 
 <script src="./js/main.js"></script>
+
 <script src="./js/qpanjs.js"></script>
+<script>
+    $(".music").click(function () {
+        console.log("music");
+        if (music_status == 0) {
+            jq("#bgMusic")[0].pause();
+            music_status = 1
+            jq(".music img").attr("src","./img/musicOff.png")
+        }else {
+            jq("#bgMusic")[0].play();
+            music_status = 0
+            jq(".music img").attr("src","./img/musicOn.png")
+        }
+    });
+</script>
 </html>

@@ -93,7 +93,7 @@ body,html {
 
 #start_btn{
     width: 17rem;
-    bottom: 10rem;
+    bottom: 12rem;
     position: absolute;
     left: 11.5rem;
     z-index: 10;
@@ -240,15 +240,21 @@ body,html {
     text-align-last: center;
 }
 
-.tishi-v{
-    width: 100%;
+.music {
     position: absolute;
-    left: 0;
-    bottom: 1.5rem;
-    text-align: center;
-    color: #fff;
-    z-index: 99;
-    font-size: 2rem;
+    width: 3rem;
+    height:3rem;
+    top: 1rem;
+    right: 1rem;
+    z-index: 9999999;
+}
+
+.tishi-v{
+    width: 20rem;
+    position: absolute;
+    right: 10rem;
+    bottom: 2rem;
+    z-index: 999;
 }
 
 select{
@@ -300,8 +306,8 @@ select{
     top: 15.5rem;
     color: #ffffff;
     text-align: center;
-    line-height: 3.2rem;
-    font-size: 1rem;
+    line-height: 3.5rem;
+    font-size: 0.8rem;
     opacity: 0;
 }
 .tishi2{
@@ -429,6 +435,59 @@ select{
     /*-webkit-background-clip: text; !*必需加前缀 -webkit- 才支持这个text值 *!*/
     /*-webkit-text-fill-color: transparent; !*text-fill-color会覆盖color所定义的字体颜色： *!*/
 }
+.yhj-title{
+    position: absolute;
+    width: 24rem;
+    top: 10rem;
+    left: 6rem;
+    z-index: 1;
+}
+#wrapper_vvv{
+    position: absolute;
+    width: 24rem;
+    height: 20rem;
+    left: 6rem;
+    top: 18rem;
+    z-index: 99;
+    overflow: hidden;
+}
+.myyhj-v {
+    position: absolute;
+    z-index: 99;
+}
+.myyhj-v-item {
+    width: 24rem;
+    height: 3rem;
+    line-height: 3rem;
+    font-family: 'RTWSYueGoTrial';
+    text-align: center;
+    font-size: 3rem;
+    top: 15rem;
+    color: #fff;
+    overflow-y: scroll;
+    float: left;
+}
+.save_btn{
+    position: absolute;
+    width: 14rem;
+    left: 13rem;
+    bottom: 3rem;
+    z-index: 55;
+}
+
+.code-txt {
+    position: absolute;
+    width: 24rem;
+    height: 3rem;
+    line-height: 3rem;
+    font-family: 'RTWSYueGoTrial';
+    text-align: center;
+    left: 6rem;
+    font-size: 2.8rem;
+    top: 21rem;
+    color: #7250d2;
+    overflow-y: scroll;
+}
 .lihe-v{
     position: absolute;
     width: 100%;
@@ -436,6 +495,26 @@ select{
     z-index: 1;
     top: 0;
     left: 0;
+}
+.yhj-v{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-image: url("../img/bg3.jpg");
+    background-size: 100% 100%;
+}
+.yhj2-v{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-image: url("../img/bg3.jpg");
+    background-size: 100% 100%;
 }
 .title3{
     position: absolute;
@@ -481,6 +560,20 @@ select{
     top: 7rem;
     z-index: 999;
 }
+.lihe-x2{
+    width: 2rem;
+    position: absolute;
+    right: 6rem;
+    top: 7rem;
+    z-index: 999;
+}
+.lihe-x3{
+    width: 2rem;
+    position: absolute;
+    right: 6rem;
+    top: 7rem;
+    z-index: 999;
+}
 .share_img2{
 
 }
@@ -515,6 +608,24 @@ select{
     background-image: url("../img/lwbg.png");
     background-size: 100% 100%;
     z-index: 99;
+}
+.kaixiang2{
+    position: absolute;
+    width: 36rem;
+    height: 58rem;
+    top: 0.5rem;
+    left:2rem;
+    background-image: url("../img/yhjbg.png");
+    background-size: 100% 100%;
+    z-index: 99;
+}
+.kaixiang3{
+    position: absolute;
+    width: 36rem;
+    height: 58rem;
+    top: 0.5rem;
+    left:2rem;
+    z-index: 100;
 }
 .kaixiang-img{
     position: absolute;
@@ -623,10 +734,10 @@ select{
     background-size: 100% 100%;
 }
 .xuanzhe-item img{
-    height: 80%;
+    height: 90%;
     margin: 0 auto;
     display: block;
-    margin-top: 10%;
+    margin-top: 5%;
 }
 
 .xuanzhe-quyu {
@@ -790,12 +901,26 @@ select{
     top: 5rem;
     left: 0;
 }
+.logot1 {
+    position: absolute;
+    z-index: 1;
+    width: 20rem;
+    bottom: 1rem;
+    left: 10rem;
+}
 
 .back{
     width: 3rem;
     position: absolute;
     top: 1rem;
     left: 1rem;
+    z-index: 999;
+}
+.yhj_btn {
+    width: 3rem;
+    position: absolute;
+    top: 3rem;
+    left: 9rem;
     z-index: 999;
 }
 

@@ -20,6 +20,23 @@ var imgUrl = './baifang/png/tu/';/*跨域，相对路径*/
 var wf_width = document.body.clientWidth;
 var things_bili = 0.78;
 var things_wh = 0.88;
+var add_goods_id = [];
+// var save_obj = {
+//     "id": 0,
+//     "name": "",
+//     "des": "",
+//     "x": 0,
+//     "y": 0,
+//     "width": 0,
+//     "height": 0,
+//     "gridx": 0,
+//     "gridy": 0,
+//     "belong": 0,
+//     "type": 0,
+//     "src": "",
+//     "src2": "",
+//     "sort": 0
+// }
 /*预加载图片分组*/
 var imgList = {
     0: [
@@ -88,10 +105,113 @@ showbag.loadImageOther = function (imgListItem, imgIndex) {
         }
     }
 };
+function getSaveGoods(){
+    jq.ajax({
+        type: "get", //提交方式
+        url: get_url + "getSaveGoods.php",//路径
+        data: {
+            opendid: opendid
+        },//数据，这里使用的是Json格式进行传输
+        dataType: 'json',
+        success: function (res) {//返回数据根据结果进行相应的处理
+            console.log("getSaveGoods",res);
+            chooseHeight = $choose.height();
+            thingsWidth = parseInt(jq('#mythings').css("width"));
+            thingsHeight =  parseInt(jq('#mythings').css("height"));
+            for (let i=0;i<res.data.goods_arr.length;i++){
+                var belong = res.data.goods_arr[i].belong;
+
+                var id = res.data.goods_arr[i].id;
+                // thingsWidth = $things.width();
+                // thingsHeight = $things.height();
+                var timeStamp = parseInt(Math.random()*(1000-1+1)+1,10),
+                    klassRadio = '';
+                    width = res.data.goods_arr[i].width,
+                    height = res.data.goods_arr[i].height,
+                    thingImg = res.data.goods_arr[i].src,
+                    thingImg2 = res.data.goods_arr[i].src2,
+
+                    gridx = res.data.goods_arr[i].gridx,
+                    gridy = res.data.goods_arr[i].gridy,
+                    type = res.data.goods_arr[i].type,
+
+                    // scale = $(this).attr('data-scale'),
+
+                    // thingWidth = width * rem,
+                    // thingHeight = height * rem,
+                    thingWidth = thingsWidth / (game_width / width),
+                    thingHeight = thingsHeight / (game_height / height),
+                    // thingHeight = thingWidth / scale;
+                thingLeft = (wf_width * things_wh - thingWidth) / 2,
+                    // thingTop = ((wf_width*things_wh) / things_bili - thingHeight - chooseHeight)/2;
+                    thingTop = ((wf_width * things_wh) / things_bili - thingHeight) / 2;
+                thingLeft = res.data.goods_arr[i].x;
+                thingTop = res.data.goods_arr[i].y;
+                console.log("thingWidth",thingsWidth);
+                console.log("thingHeight",thingsHeight);
+                console.log("thingHeight",game_width);
+                console.log("thingHeight",game_height);
+                console.log("thingHeight",height);
+                add_goods_id.push(res.data.goods_arr[i]);
+                console.log("add_goods_id1",add_goods_id);
+
+                $things.append('<div data-id="' + id + '" data-type="' + type + '"  data-gridx="' + gridx + '" data-gridy="' + gridy + '" class="thing ' + klassRadio + '" id="thing-' + timeStamp + '" style="width:' + thingWidth + 'px;height:' + thingHeight + 'px;left:' + thingLeft + 'px;top:' + thingTop + 'px;"><img id="thingimg-' + timeStamp + '" src="' + imgUrl + thingImg + '"><div id="del" data-id="' + id + '" class="del"></div><div id="big" data-myid="' + id + '" data-img="' + thingImg + '" data-img2="' + thingImg2 + '" data-id="' + timeStamp + '" class="big"></div></div>');
+                showbag.touchScale('#thing-' + timeStamp);
+            }
+
+            if (add_goods_id.length != 0) {
+                $(".g_btn1").css('display','none')
+                $(".g_btn2").css('display','none')
+                $(".g_btn3").css('display','none')
+                $(".g_btn4").css('display','block')
+                game_save_status = 1;
+            } else {
+                $(".g_btn1").css('display','block')
+                $(".g_btn2").css('display','block')
+                $(".g_btn3").css('display','block')
+                $(".g_btn4").css('display','none')
+                game_save_status = 0;
+            }
+        }
+    });
+}
+
+jq('.g_btn4').click(function () {
+    if (add_goods_id.length!=0) {
+        jq.ajax({
+            type: "get", //提交方式
+            url: get_url + "saveGoods.php",//路径
+            data: {
+                opendid: '',
+                room_bg: room_bg,
+                goods_data: add_goods_id
+            },//数据，这里使用的是Json格式进行传输
+            dataType: 'json',
+            success: function (res) {//返回数据根据结果进行相应的处理
+                console.log(res);
+                if (res.code == 0) {
+                    jq(document).dialog({
+                        type : 'notice',
+                        infoText: '保存成功',
+                        autoClose: 1500,
+                        position: 'center'  // center: 居中; bottom: 底部
+                    });
+                    jq(".g_btn1").css('display','block');
+                    jq(".g_btn2").css('display','block');
+                    jq(".g_btn3").css('display','block');
+                    jq(".g_btn4").css('display','none');
+                    game_save_status = 0;
+                }
+            }
+        });
+    }else {
+
+    }
+});
+
 
 /*初始化*/
 showbag.init = function () {
-
     $choose.removeClass('hide');
     $things.parent().removeClass('hide');
     showbag.drawing();/*画布初始化*/
@@ -123,15 +243,27 @@ showbag.init = function () {
     // });
 
     rem = showbag.rem();
+
+    // thingsWidth = $things.width();
+    // thingsHeight = $things.height();
     /*添加物品*/
     $choose.on('tap', '.goods', function (e) {
         chooseHeight = $choose.height();
-        console.log("belong",$(this).attr('data-belong'));
+        console.log("belong", $(this).attr('data-belong'));
         var belong = $(this).attr('data-belong');
+
         if (belong == 0) {
-            alert("尚未获取该装饰");
-           return 0;
+            jq(document).dialog({
+                type : 'notice',
+                infoText: '尚未获取该装饰',
+                autoClose: 1500,
+                position: 'center'  // center: 居中; bottom: 底部
+            });
+            return 0;
         }
+
+        var id = $(this).attr('data-id');
+
 
         thingsWidth = $things.width();
         thingsHeight = $things.height();
@@ -169,8 +301,74 @@ showbag.init = function () {
             klassRadio = 'thing-radio';
             $('.' + klassRadio).remove();
         }
-        $things.append('<div  data-type="' + type + '"  data-gridx="' + gridx + '" data-gridy="' + gridy + '" class="thing ' + klassRadio + '" id="thing-' + timeStamp + '" style="width:' + thingWidth + 'px;height:' + thingHeight + 'px;left:' + thingLeft + 'px;top:' + thingTop + 'px;"><img id="thingimg-' + timeStamp + '" src="' + imgUrl + thingImg + '"><div id="del" class="del"></div><div id="big" data-img="' + thingImg + '" data-img2="' + thingImg2 + '" data-id="' + timeStamp + '" class="big"></div></div>');
+
+
+        console.log("data", id);
+        console.log("add_goods_id", add_goods_id);
+        var save_obj = {
+            "id": id,
+            "name": "",
+            "des": "",
+            "x": 0,
+            "y": 0,
+            "width": width,
+            "height": height,
+            "gridx": gridx,
+            "gridy": gridy,
+            "belong": 0,
+            "type": type,
+            "src": thingImg,
+            "src2": thingImg2,
+            "sort": 0
+        }
+
+        var add_status = true;
+
+        add_goods_id.push(save_obj)
+
+        // if (add_goods_id.length == 0) {
+        //     add_status = false
+        //     add_goods_id.push(save_obj)
+        //     console.log("add_goods_id", add_goods_id);
+        // } else {
+        //     console.log("add_goods_id", add_goods_id);
+        //     for (let i = 0; i < add_goods_id.length; i++) {
+        //         if (add_goods_id[i].id == save_obj.id) {
+        //             add_status = false
+        //             // jq(document).dialog({
+                    //     type : 'notice',
+                    //     infoText: '已经添加了',
+                    //     autoClose: 1500,
+                    //     position: 'center'  // center: 居中; bottom: 底部
+                    // });
+                    // return 0;
+        //         }
+        //     }
+        // }
+        // if (add_status) {
+        //     add_goods_id.push(save_obj)
+        // }
+
+
+
+        if (add_goods_id.length != 0) {
+            $(".g_btn1").css('display','none')
+            $(".g_btn2").css('display','none')
+            $(".g_btn3").css('display','none')
+            $(".g_btn4").css('display','block')
+            game_save_status = 1;
+        } else {
+            $(".g_btn1").css('display','block')
+            $(".g_btn2").css('display','block')
+            $(".g_btn3").css('display','block')
+            $(".g_btn4").css('display','none')
+            game_save_status = 0;
+        }
+
+
+        $things.append('<div  data-id="' + id + '" data-type="' + type + '"  data-gridx="' + gridx + '" data-gridy="' + gridy + '" class="thing ' + klassRadio + '" id="thing-' + timeStamp + '" style="width:' + thingWidth + 'px;height:' + thingHeight + 'px;left:' + thingLeft + 'px;top:' + thingTop + 'px;"><img id="thingimg-' + timeStamp + '" src="' + imgUrl + thingImg + '"><div id="del"  data-id="' + id + '" class="del"></div><div id="big" data-img="' + thingImg + '" data-img2="' + thingImg2 + '" data-myid="' + id + '" data-id="' + timeStamp + '" class="big"></div></div>');
         showbag.touchScale('#thing-' + timeStamp);
+
     }).on('click', '.choose-toggle', function () {
         $choose.toggleClass('choose-down');
         setTimeout(function () {
@@ -240,6 +438,28 @@ showbag.init = function () {
     /*移除、放大物品*/
     $things.on('click', '.del', function () {
         $(this).parents('.thing').remove();
+
+        var id = $(this).attr('data-id');
+        console.log("ididid",id)
+        console.log("ididids",add_goods_id)
+        for (let i=0; i<add_goods_id.length;i++) {
+            if (add_goods_id[i].id == id) {
+                add_goods_id.splice(i,1)
+            }
+        }
+        if (add_goods_id.length != 0) {
+            $(".g_btn1").css('display','none')
+            $(".g_btn2").css('display','none')
+            $(".g_btn3").css('display','none')
+            $(".g_btn4").css('display','block')
+        } else {
+            $(".g_btn1").css('display','block')
+            $(".g_btn2").css('display','block')
+            $(".g_btn3").css('display','block')
+            $(".g_btn4").css('display','none')
+        }
+        console.log("add_goods_id",add_goods_id)
+
     }).on('touchstart', function (e) {
         if (e.target == this) {
             $('.thing', $(this)).removeClass('thing-touch');
@@ -247,15 +467,33 @@ showbag.init = function () {
         $('.thing', $(this)).on('touchstart', function (e) {
             e.stopPropagation();
         });
+
+
+
     }).on('click', '.big', function () {
         // showbag.clickScale($(this), 1.1);
         var id = $(this).attr('data-id')
-        console.log()
+        var myid = $(this).attr('data-myid')
+        console.log("id23123",id)
+        console.log("myid23123",myid)
+
         if (jq('#thingimg-' + id).attr('src').indexOf("_") != -1) {
             jq('#thingimg-' + id).attr('src', imgUrl + $(this).attr('data-img'));
         } else {
             jq('#thingimg-' + id).attr('src', imgUrl + $(this).attr('data-img2'));
         }
+
+        for (let i=0; i<add_goods_id.length;i++) {
+            if (add_goods_id[i].id == myid) {
+                console.log(add_goods_id[i].x);
+                console.log(add_goods_id[i].y);
+                var src2 = add_goods_id[i].src2
+                var src = add_goods_id[i].src
+                add_goods_id[i].src = src2
+                add_goods_id[i].src2 = src
+            }
+        }
+        console.log(add_goods_id)
     });
 
     /*阻止微信点击图片预览-解决Android下base64太长无法识别问题*/
@@ -277,55 +515,93 @@ showbag.drawing = function () {
 
 function addGoods() {
     // 加载goods
-    jq(".choose-list-wrap").html("");
-    var goods_html = "";
-    for (let i = 0; i < goods_arr.length; i++) {
-        var goods_id = i + 1;
-        goods_html += '<ul id="goods' + goods_id + '">';
-        for (let o = 0; o < goods_arr[i].length; o++) {
-            if (goods_arr[i][o].belong == 1) {
-                goods_html += '<li class="goods goodsli" data-type="' + goods_arr[i][o].type + '" data-belong="' + goods_arr[i][o].belong + '"  data-gridx="' + goods_arr[i][o].gridx + '" data-gridy="' + goods_arr[i][o].gridy + '" data-gridy="' + goods_arr[i][o].scale + '" data-width="' + goods_arr[i][o].width + '" data-height="' + goods_arr[i][o].height + '" data-img="' + goods_arr[i][o].src + '" data-img2="' + goods_arr[i][o].src2 + '">'
-                    + '<img class="goods-img loading-img" src="' + imgUrl + goods_arr[i][o].src + '">'
+    jq.ajax({
+        type: "get", //提交方式
+        url: get_url + "getGoods.php",//路径
+        data: {
+            opendid: opendid
+        },//数据，这里使用的是Json格式进行传输
+        dataType: 'json',
+        success: function (res) {//返回数据根据结果进行相应的处理
+            console.log(res);
+            if (res.code == 0) {
+                goods_arr = res.data.goods_arr
+                jq(".choose-list-wrap").html("");
+                var goods_html = "";
+                for (let i = 0; i < goods_arr.length; i++) {
+                    var goods_id = i + 1;
+                    if (i==0) {
+                        goods_html += '<ul id="goods' + goods_id + '">';
+                    } else {
+                        goods_html += '<ul class="hide" id="goods' + goods_id + '">';
+                    }
+                    for (let o = 0; o < goods_arr[i].length; o++) {
+                        if (goods_arr[i][o].belong == 1) {
+                            goods_html += '<li class="goods goodsli" data-id="' + goods_arr[i][o].id + '" data-type="' + goods_arr[i][o].type + '" data-belong="' + goods_arr[i][o].belong + '"  data-gridx="' + goods_arr[i][o].gridx + '" data-gridy="' + goods_arr[i][o].gridy + '" data-gridy="' + goods_arr[i][o].scale + '" data-width="' + goods_arr[i][o].width + '" data-height="' + goods_arr[i][o].height + '" data-img="' + goods_arr[i][o].src + '" data-img2="' + goods_arr[i][o].src2 + '">'
+                                + '<img class="goods-img loading-img" src="' + imgUrl + goods_arr[i][o].src + '">'
+                                + '</li>'
+                        } else {
+                            goods_html += '<li class="goods goodsli" data-id="' + goods_arr[i][o].id + '" data-type="' + goods_arr[i][o].type + '" data-belong="' + goods_arr[i][o].belong + '"  data-gridx="' + goods_arr[i][o].gridx + '" data-gridy="' + goods_arr[i][o].gridy + '" data-gridy="' + goods_arr[i][o].scale + '" data-width="' + goods_arr[i][o].width + '" data-height="' + goods_arr[i][o].height + '" data-img="' + goods_arr[i][o].src + '" data-img2="' + goods_arr[i][o].src2 + '">'
+                                + '<img class="goods-img gray loading-img" src="' + imgUrl + goods_arr[i][o].src + '">'
+                                + '</li>'
+                        }
+                    }
+                    goods_html += '</ul>';
+                }
+
+                goods_html += '<ul id="goods5" class="hide" style="width: 35rem;">';
+                goods_html += '<li class="goodsli2" style="margin-right: 0.5rem;" id="zx1">'
+                    + '<img class="goods5-img  loading-img"  src="./img/zx1.png">'
                     + '</li>'
-            } else {
-                goods_html += '<li class="goods goodsli" data-type="' + goods_arr[i][o].type + '" data-belong="' + goods_arr[i][o].belong + '"  data-gridx="' + goods_arr[i][o].gridx + '" data-gridy="' + goods_arr[i][o].gridy + '" data-gridy="' + goods_arr[i][o].scale + '" data-width="' + goods_arr[i][o].width + '" data-height="' + goods_arr[i][o].height + '" data-img="' + goods_arr[i][o].src + '" data-img2="' + goods_arr[i][o].src2 + '">'
-                    + '<img class="goods-img gray loading-img" src="' + imgUrl + goods_arr[i][o].src + '">'
+                    + '<li class="goodsli2" style="margin-right: 0.5rem;" id="zx2">'
+                    + '<img class="goods5-img  loading-img"   src="./img/zx2.png">'
                     + '</li>'
+                    + '<li class="goodsli2"  style="margin-right: 0.5rem;" id="zx3">'
+                    + '<img class="goods5-img  loading-img"  src="./img/zx3.png">'
+                    + '</li>'
+                    + '<li class="goodsli2" id="zx4">'
+                    + '<img class="goods5-img  loading-img" src="./img/zx4.png">'
+                    + '</li>';
+
+                goods_html += '</ul>';
+                jq(".choose-list-wrap").html(goods_html);
+
+                $(".aite").html("@"+name);
+                $(".aite2").html("@"+name);
+                $(".aite3").html("@"+name);
+
+                $(".jiantou2").css("left", "5.4rem");
+                $(".jiantou").css("display", "block");
+                $(".choose-list-wrap").css("width", $("#goods1 li").length * 6.5 + "rem")
+                $("#icon-a").css("backgroundImage", "url('./img/jiaju1_1.png')");
+                $("#icon-b").css("backgroundImage", "url('./img/jiaju2_2.png')");
+                $("#icon-c").css("backgroundImage", "url('./img/jiaju3_2.png')");
+                $("#icon-d").css("backgroundImage", "url('./img/jiaju4_2.png')");
+                $("#icon-e").css("backgroundImage", "url('./img//jiaju5_2.png')");
+
+                jq("#zx1").unbind().click(function () {
+                    address = "都市高层"
+                    room_bg = 1;
+                    $(".things").css("backgroundImage", "url('./img/w_bg2.png')");
+                })
+                jq("#zx2").unbind().click(function () {
+                    address = "日式庭院"
+                    room_bg = 2;
+                    $(".things").css("backgroundImage", "url('./img/w_bg3.png')");
+                })
+                jq("#zx3").unbind().click(function () {
+                    address = "滨海别墅"
+                    room_bg = 3;
+                    $(".things").css("backgroundImage", "url('./img/w_bg4.png')");
+                })
+                jq("#zx4").unbind().click(function () {
+                    address = "欧式花园"
+                    room_bg = 4;
+                    $(".things").css("backgroundImage", "url('./img/w_bg1.png')");
+                })
             }
         }
-        goods_html += '</ul>';
-    }
-
-    goods_html += '<ul id="goods5" style="width: 35rem;">';
-    goods_html += '<li class="goodsli2" id="zx1">'
-        + '<img class="goods5-img  loading-img" src="./img/zx1.png">'
-        +'</li>'
-    +'<li class="goodsli2" id="zx2">'
-    + '<img class="goods5-img  loading-img" src="./img/zx2.png">'
-    +'</li>'
-    +'<li class="goodsli2" id="zx3">'
-    + '<img class="goods5-img  loading-img" src="./img/zx3.png">'
-    +'</li>'
-    +'<li class="goodsli2" id="zx4">'
-    + '<img class="goods5-img  loading-img" src="./img/zx4.png">'
-    +'</li>';
-
-    goods_html += '</ul>';
-
-    jq(".choose-list-wrap").html(goods_html);
-
-    jq("#zx1").click(function () {
-        $(".things").css("backgroundImage", "url('./img/w_bg2.png')");
-    })
-    jq("#zx2").click(function () {
-        $(".things").css("backgroundImage", "url('./img/w_bg3.png')");
-    })
-    jq("#zx3").click(function () {
-        $(".things").css("backgroundImage", "url('./img/w_bg1.png')");
-    })
-    jq("#zx4").click(function () {
-        $(".things").css("backgroundImage", "url('./img/w_bg4.png')");
-    })
+    });
 }
 
 function addGoods2() {
@@ -361,8 +637,10 @@ function addGoods2() {
     jq(".xuanzhe-item").unbind("click").click(function () {
 
         jq(".xuanzhe-item").removeClass('xuanzhe-item-sle');
+
         jq(this).addClass('xuanzhe-item-sle');
-        console.log(jq(this).attr('data-id'))
+        sle_id = jq(this).attr("data-id");
+        console.log(sle_id)
     });
 }
 
@@ -373,12 +651,12 @@ function startGame() {
     }, 500);
     if (address == "都市高层") {
         $(".things").css("backgroundImage", "url('./img/w_bg2.png')");
-    }else if (address == "日式庭院"){
+    } else if (address == "日式庭院") {
         $(".things").css("backgroundImage", "url('./img/w_bg3.png')");
-    }else if (address == "滨海别墅"){
-        $(".things").css("backgroundImage", "url('./img/w_bg1.png')");
-    }else if (address == "欧式花园"){
+    } else if (address == "滨海别墅") {
         $(".things").css("backgroundImage", "url('./img/w_bg4.png')");
+    } else if (address == "欧式花园") {
+        $(".things").css("backgroundImage", "url('./img/w_bg1.png')");
     }
 
     $(".choose-list-wrap").css("width", $("#goods1 li").length * 6.5 + "rem");
@@ -393,8 +671,8 @@ function startGame() {
     $(".things2").css("left", (wf_width - wf_width * things_wh) / 2 + 5 + "px");
     $(".things2").css("top", "4rem");
 
-    var choose_top = parseInt($(".things2").css("top")) +parseInt($(".things2").css("height")) +50
-    console.log("choose_top",choose_top);
+    var choose_top = parseInt($(".things2").css("top")) + parseInt($(".things2").css("height")) + 50
+    console.log("choose_top", choose_top);
     jq("#choose").css("top", choose_top + "px");
     /*生成当前地址二维码*/
     showbag.onloadJS(cdnUrl + '/js/qrcode.min.js', function () {
@@ -407,7 +685,7 @@ function startGame() {
     });
 
     /*物品列表滚动条初始化*/
-    showbag.onloadJS(cdnUrl + '/js/iscroll.min.js', function () {
+    // showbag.onloadJS(cdnUrl + '/js/iscroll.min.js', function () {
         // var myScroll = new IScroll('#chooseListScroll', { scrollX: true, scrollY: false, mouseWheel: true });
         chooseListScroll = new IScroll('#chooseListScroll', {
             tap: true,
@@ -418,7 +696,7 @@ function startGame() {
             vScroll: false
         });
 
-    });
+    // });
 }
 
 /*拍照*/
@@ -598,6 +876,14 @@ showbag.touchScale = function (thing) {
         /*手指放到屏幕上的时候，还没有进行其他操作*/
 
         if (event.type == 'touchstart') {
+            // 打开保存
+            if (game_save_status == 0) {
+                $(".g_btn1").css('display','none')
+                $(".g_btn2").css('display','none')
+                $(".g_btn3").css('display','none')
+                $(".g_btn4").css('display','block')
+            }
+
             originalWidth = $touch.width();
             originalHeight = $touch.height();
             baseScale = parseFloat(originalWidth / originalHeight);
@@ -636,10 +922,9 @@ showbag.touchScale = function (thing) {
                     var gridy = $(thing).attr('data-gridy');
                     var gridx = $(thing).attr('data-gridx');
                     var type = $(thing).attr('data-type');
-                    var img_src = jq($(thing).selector+' img').attr('src');
-                    console.log("img_src",img_src);
+                    var img_src = jq($(thing).selector + ' img').attr('src');
+                    console.log("img_src", img_src);
                     // 反向
-
 
 
                     var gridy_chengji = 0;
@@ -661,28 +946,28 @@ showbag.touchScale = function (thing) {
                     var allgridx = 0;
                     if (gridy > gridx) {
                         allgrid = gridy
-                         allgridx = one_width * (allgrid - (gridy-gridx)*0.5)
+                        allgridx = one_width * (allgrid - (gridy - gridx) * 0.5)
                     } else if (gridy < gridx) {
                         allgrid = gridx
-                        allgridx = one_width * (allgrid - (gridx-gridy)*0.5)
+                        allgridx = one_width * (allgrid - (gridx - gridy) * 0.5)
                     } else {
                         allgrid = gridx
                         allgridx = one_width * allgrid
                     }
                     console.log(allgridx)
 
-                   console.log("allgridx",allgridx);
+                    console.log("allgridx", allgridx);
 
                     if (img_src.indexOf("_") != -1) {
                         // 反向
                         // 左点
                         dian1_x = imgLeft + (x2 - x1)
                         // dian1_x =  parseFloat($(thing).css("left"));
-                        dian1_y = imgTop + (y2 - y1) + parseInt($(thing).css('height'))  - gridy * one_height /2;
+                        dian1_y = imgTop + (y2 - y1) + parseInt($(thing).css('height')) - gridy * one_height / 2;
                         // 右点
                         dian2_x = imgLeft + (x2 - x1) + allgridx;
                         // dian2_x = parseFloat($(thing).css("left")) + gridy_chengji * one_width
-                        dian2_y =  imgTop + (y2 - y1) + parseInt($(thing).css('height'))  - gridx * one_height /2;
+                        dian2_y = imgTop + (y2 - y1) + parseInt($(thing).css('height')) - gridx * one_height / 2;
                         // dian2_y = parseFloat($(thing).css("top")) + parseInt($(thing).css('height')) - one_height * 1.5
                     } else {
                         // 正向
@@ -693,10 +978,10 @@ showbag.touchScale = function (thing) {
                         // 右点
                         dian2_x = imgLeft + (x2 - x1) + allgridx;
                         // dian2_x = parseFloat($(thing).css("left")) + gridy_chengji * one_width
-                        dian2_y = imgTop + (y2 - y1) + parseInt($(thing).css('height')) - gridy * one_height /2;
+                        dian2_y = imgTop + (y2 - y1) + parseInt($(thing).css('height')) - gridy * one_height / 2;
                         // dian2_y = parseFloat($(thing).css("top")) + parseInt($(thing).css('height')) - one_height * 1.5
-                        console.log("dian2_x",dian2_x);
-                        console.log("dian2_y",dian2_y);
+                        console.log("dian2_x", dian2_x);
+                        console.log("dian2_y", dian2_y);
                     }
 
                     var val_1 = (ding_y - left_y) * dian1_x + (left_x - ding_x) * dian1_y - (ding_y - left_y) * left_x + (ding_x - left_x) * left_y
@@ -708,18 +993,18 @@ showbag.touchScale = function (thing) {
                     val1_d = val_1 / val_2;
                     val2_d = val_3 / val_4;
 
-                    if (val1_d < 0 && val2_d<0 ) {
+                    if (val1_d < 0 && val2_d < 0) {
                         dian1_x_jl = dian1_x;
                         dian1_y_jl = dian1_y;
                     }
                     if (type == 0) {
-                        if (val1_d < 0 && val2_d < 0  ) {
+                        if (val1_d < 0 && val2_d < 0) {
                             $self.css({
                                 'left': imgLeft + (x2 - x1),
                                 'top': imgTop + (y2 - y1)
                             });
                         }
-                    }else if (type == 1) {
+                    } else if (type == 1) {
                         $self.css({
                             'left': imgLeft + (x2 - x1),
                             'top': imgTop + (y2 - y1)
@@ -754,11 +1039,11 @@ showbag.touchScale = function (thing) {
             var thing_x = parseFloat($(thing).css("left"));
             var thing_y = parseFloat($(thing).css("top"));
             console.log("x_d", x_d);
-            console.log("sort_arr[0].y ", sort_arr[0].y );
+            console.log("sort_arr[0].y ", sort_arr[0].y);
             console.log("y_d", y_d);
             console.log("sort_arr", sort_arr);
 
-            console.log("val2_d",val2_d);
+            console.log("val2_d", val2_d);
             // if (end_y2!=thing_y + y_d && x_d != end_x2) {
             //     jq(thing).animate({left: x_d + 'px', top: thing_y + y_d + 'px'}, 400, function () {
             //         end_x2 = parseFloat($(thing).css("left"))
@@ -779,6 +1064,17 @@ showbag.touchScale = function (thing) {
 
 
             // console.log("sort_arr", sort_arr);
+
+            var id = $(thing).attr("data-id")
+
+            for (let i = 0; i < add_goods_id.length;i++) {
+                if (id == add_goods_id[i].id) {
+                    add_goods_id[i].x = imgLeft + (x2 - x1)
+                    add_goods_id[i].y = imgTop + (y2 - y1)
+                }
+            }
+
+            console.log("idididid",add_goods_id);
             siteData($self);
             showbag.touchSort($self);/*拖动完成后排序*/
         }

@@ -1,0 +1,53 @@
+{
+  "code":0,
+  "data":{
+    "coupons":[
+      {
+        "id":0,
+        "name":"" ,
+        "code":"TXYX01HRNHME"
+      },
+      {
+        "id":0,
+        "name":"" ,
+        "code":"TXYX01HRNHME"
+      },
+      {
+        "id":0,
+        "name":"" ,
+        "code":"TXYX01HRNHME"
+      },
+      {
+        "id":0,
+        "name":"" ,
+        "code":"TXYX01HRNHME"
+      },
+      {
+        "id":0,
+        "name":"" ,
+        "code":"TXYX01HRNHME"
+      },
+      {
+        "id":0,
+        "name":"" ,
+        "code":"TXYX01HRNHME"
+      },
+      {
+        "id":0,
+        "name":"" ,
+        "code":"TXYX01HRNHME"
+      },
+      {
+        "id":0,
+        "name":"" ,
+        "code":"TXYX01HRNHME"
+      },
+      {
+        "id":0,
+        "name":"" ,
+        "code":"TXYX01HRNHME"
+      }
+
+    ]
+  }
+}

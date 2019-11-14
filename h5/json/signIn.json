@@ -6,24 +6,35 @@
       {
         "day": 1,
         "type": 1,
-        "state": 0
+        "state": 0,
+        "gift": {}
       },
       {
         "day": 2,
         "type": 1,
-        "state": 0
+        "state": 0,
+        "gift": {}
       }, {
         "day": 3,
         "type": 1,
-        "state": 0
+        "state": 0,
+        "gift": {
+          "id": 0,
+          "name": "3001钻石"
+        }
       }, {
         "day": 4,
         "type": 0,
-        "state": 0
+        "state": 0,
+        "gift": {}
       }, {
         "day": 5,
         "type": 0,
-        "state": 0
+        "state": 0,
+        "gift": {
+          "id": 0,
+          "name": "3002钻石"
+        }
       }
     ]
   }

@@ -1,0 +1,24 @@
+{
+  "code": 0,
+  "data": {
+    "room_bg": 0,
+    "goods_arr": [
+        {
+          "id": 15,
+          "name": "黄色电视柜",
+          "des": "一直和电视争宠，但从未赢过",
+          "width": 219,
+          "height": 189,
+          "gridx": 1,
+          "gridy": 3,
+          "x": 82,
+          "y": 223,
+          "belong": 1,
+          "type": 0,
+          "src": "1/17.png",
+          "src2": "1/17_1.png",
+          "sort": 1
+        }
+    ]
+  }
+}
